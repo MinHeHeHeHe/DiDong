@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Android_DoAn</string>
+    <string name="title_activity_ho_so_nguoi_dung">HoSoNguoiDungActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_map">Map</string>
+    <string name="title_orders">Orders</string>
+    <string name="title_profile">Profile</string>
+</resources>
