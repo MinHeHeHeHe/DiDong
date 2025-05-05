@@ -101,10 +101,10 @@
         android:background="@drawable/dangnhap_container_group1">
 
         <EditText
-            android:id="@+id/txtSDT"
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập số điện thoại"
+            android:hint="Nhập Email"
             android:padding="16dp"
             android:background="@drawable/image_rectangle2"
             android:textColor="#FF1C2439"
