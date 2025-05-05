@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Chuyển sang layout_dang_nhap
-                startActivity(new Intent(SplashActivity.this, DangNhapActivity.class));
+                startActivity(new Intent(SplashActivity.this, HoSoNguoiDungActivity.class));
                 finish(); // Đóng SplashActivity
             }
         }, 2000); // 2 giây delay
