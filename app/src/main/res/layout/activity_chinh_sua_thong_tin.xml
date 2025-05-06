@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:id="@+id/main">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         <LinearLayout
             android:id="@+id/container_edit_user_info"
             android:layout_width="match_parent"
-            android:layout_height="917dp"
+            android:layout_height="match_parent"
             android:background="@drawable/container_dang_nhap"
             android:gravity="left|top"
             android:orientation="vertical">
@@ -53,256 +54,222 @@
                     android:textSize="24dp" />
             </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/container_full_name"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="75.53dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginRight="19dp"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="19dp"
                 android:layout_marginTop="29dp">
 
-                <ImageView
-                    android:id="@+id/img_full_name_bg1"
+                <!-- Vùng bo góc chứa giá trị trùng đáy -->
+                <RelativeLayout
+                    android:id="@+id/container_full_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="11dp"
-                    android:background="@drawable/img_full_name_bg1"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_framelayout_rounded"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="12dp"
+                    android:paddingStart="21dp"
+                    android:paddingEnd="21dp">
 
+                    <EditText
+                        android:id="@+id/txt_full_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Minhee"
+                        android:textSize="20sp"
+                        android:textColor="#FF000000"
+                        android:includeFontPadding="false"
+                        android:singleLine="true" />
+                </RelativeLayout>
 
-
-                <TextView
-                    android:id="@+id/txt_full_name"
-                    android:layout_width="300dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="43dp"
-                    android:layout_marginTop="27.95dp"
-                    android:layout_marginBottom="17.58dp"
-                    android:layout_gravity="left"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="Minhee"
-                    android:textColor="#FF000000"
-                    android:textSize="24dp" />
-
+                <!-- Nhãn Tên tài khoản nằm nổi lên -->
                 <TextView
                     android:id="@+id/txt_username"
-                    android:layout_width="116dp"
-                    android:layout_height="28dp"
-                    android:layout_marginLeft="21dp"
-                    android:layout_gravity="top|left"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="Tên tài khoản"
-                    android:textColor="#FF000000"
-                    android:textSize="18dp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/container_birth_date"
-                android:layout_width="match_parent"
-                android:layout_height="86dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="18.47dp">
-
-                <ImageView
-                    android:id="@+id/img_birth_bg1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/img_birth_bg1"
-                    android:scaleType="centerCrop" />
-
-                <ImageView
-                    android:id="@+id/img_birth_bg2"
-                    android:layout_width="92dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="21dp"
-                    android:layout_gravity="top|left"
-                    android:background="@drawable/img_birth_bg2"
-                    android:scaleType="centerInside" />
-
-                <TextView
-                    android:id="@+id/txt_birth_date"
-                    android:layout_width="174dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginTop="33dp"
-                    android:layout_marginBottom="21dp"
-                    android:layout_gravity="left"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="06 / 05 / 2003"
-                    android:textColor="#FF000000"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/txt_birth_label"
-                    android:layout_width="110dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="26dp"
-                    android:layout_gravity="top|left"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="Ngày sinh"
-                    android:textColor="#FF000000"
-                    android:textSize="18dp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/container_phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="86dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="18dp">
-
-                <ImageView
-                    android:id="@+id/img_phone_bg1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/img_phone_bg1"
-                    android:scaleType="centerCrop" />
-
-                <ImageView
-                    android:id="@+id/img_phone_bg2"
-                    android:layout_width="121dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="21dp"
-                    android:layout_gravity="top|left"
-                    android:background="@drawable/img_phone_bg2"
-                    android:scaleType="centerInside" />
-
-                <TextView
-                    android:id="@+id/txt_phone_number"
-                    android:layout_width="174dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginTop="33dp"
-                    android:layout_marginBottom="21dp"
-                    android:layout_gravity="left"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="09036637660"
-                    android:textColor="#FF000000"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/txt_phone_label"
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="26dp"
-                    android:layout_gravity="top|left"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="Số điện thoại"
-                    android:textColor="#FF000000"
-                    android:textSize="18dp" />
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:text="Tên tài khoản"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:background="#FFFFFF"
+                    android:paddingHorizontal="4dp"
+                    android:layout_alignTop="@id/container_full_name"
+                    android:layout_alignStart="@id/container_full_name"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="-10dp" />
+            </RelativeLayout>
 
-            <FrameLayout
-                android:id="@+id/container_address"
+
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="133dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginRight="19dp"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="19dp"
                 android:layout_marginTop="29dp">
 
-                <ImageView
-                    android:id="@+id/img_address_bg1"
+                <!-- Vùng bo góc chứa giá trị trùng đáy -->
+                <RelativeLayout
+                    android:id="@+id/container_full_birthday"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/img_address_bg1"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_framelayout_rounded"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="12dp"
+                    android:paddingStart="21dp"
+                    android:paddingEnd="21dp">
 
-                <ImageView
-                    android:id="@+id/img_address_bg2"
-                    android:layout_width="63dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="21dp"
-                    android:layout_gravity="top|left"
-                    android:background="@drawable/img_address_bg2"
-                    android:scaleType="centerInside" />
+                    <EditText
+                        android:id="@+id/txt_full_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="04/05/2004"
+                        android:textSize="20sp"
+                        android:textColor="#FF000000"
+                        android:includeFontPadding="false"
+                        android:singleLine="true" />
+                </RelativeLayout>
+
+                <!-- Nhãn Tên tài khoản nằm nổi lên -->
+                <TextView
+                    android:id="@+id/txt_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày sinh"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:background="#FFFFFF"
+                    android:paddingHorizontal="4dp"
+                    android:layout_alignTop="@id/container_full_birthday"
+                    android:layout_alignStart="@id/container_full_birthday"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="-10dp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="19dp"
+                android:layout_marginTop="29dp">
+
+                <!-- Vùng bo góc chứa giá trị trùng đáy -->
+
+                <!-- Nhãn Tên tài khoản nằm nổi lên -->
+                <RelativeLayout
+                    android:id="@+id/container_full_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="1dp"
+                    android:background="@drawable/bg_framelayout_rounded"
+                    android:paddingStart="21dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="21dp"
+                    android:paddingBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/txt_full_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="03030303"
+                        android:includeFontPadding="false"
+                        android:singleLine="true"
+                        android:textColor="#FF000000"
+                        android:textSize="20sp" />
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/txt_full_address"
-                    android:layout_width="303dp"
-                    android:layout_height="84dp"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginRight="29dp"
-                    android:layout_marginTop="37dp"
-                    android:layout_marginBottom="12dp"
-                    android:gravity="left|top"
-                    android:includeFontPadding="false"
-                    android:lineHeight="28.13dp"
-                    android:text="123 Phạm Văn Đồng, phường 13, quận Bình Thạnh, TP.HCM"
-                    android:textColor="#FF000000"
-                    android:textSize="24dp" />
+                    android:id="@+id/txt_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số điện thoại"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:background="#FFFFFF"
+                    android:paddingHorizontal="4dp"
+                    android:layout_alignTop="@id/container_full_phone"
+                    android:layout_alignStart="@id/container_full_phone"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="-10dp" />
+            </RelativeLayout>
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginHorizontal="19dp"
+                android:layout_marginTop="29dp">
+
+                <!-- Vùng bo góc chứa giá trị trùng đáy -->
+                <RelativeLayout
+                    android:id="@+id/container_full_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_framelayout_rounded"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="12dp"
+                    android:paddingStart="21dp"
+                    android:paddingEnd="21dp">
+
+                    <EditText
+                        android:id="@+id/txt_full_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:hint=" 123 Phạm Văn Đồng, phường 13, quận Bình Thạnh, TP.HCM"
+                        android:textSize="20sp"
+                        android:textColor="#FF000000"
+                        android:includeFontPadding="false"
+                        android:singleLine="false"
+                         />
+                </RelativeLayout>
+
+                <!-- Nhãn Tên tài khoản nằm nổi lên -->
                 <TextView
-                    android:id="@+id/txt_address_label"
-                    android:layout_width="79dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="26dp"
-                    android:layout_gravity="top|left"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
+                    android:id="@+id/txt_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Địa chỉ"
-                    android:textColor="#FF000000"
-                    android:textSize="18dp" />
-            </FrameLayout>
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:background="#FFFFFF"
+                    android:paddingHorizontal="4dp"
+                    android:layout_alignTop="@id/container_full_address"
+                    android:layout_alignStart="@id/container_full_address"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="-10dp" />
+            </RelativeLayout>
 
             <FrameLayout
                 android:id="@+id/container_change_button"
-                android:layout_width="338dp"
-                android:layout_height="55dp"
+                android:layout_width="150dp"
+                android:layout_height="65dp"
                 android:layout_marginRight="1dp"
                 android:layout_marginTop="50dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/container_change_button">
+                android:layout_gravity="center_horizontal">
 
-                <ImageView
-                    android:id="@+id/img_change_bg"
+                <Button
+                    android:id="@+id/btn_change"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/img_change_bg"
-                    android:scaleType="centerCrop" />
-
-                <TextView
-                    android:id="@+id/txt_change"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="119.5dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
                     android:layout_marginBottom="12dp"
                     android:layout_gravity="center_horizontal"
-                    android:gravity="left|center_vertical"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:singleLine="true"
+                    android:background="@drawable/image_rectangle3"
                     android:text="Thay đổi"
                     android:textColor="#FFFFFFFF"
-                    android:textSize="24dp" />
+                    android:textSize="20dp"
+                    android:gravity="center" />
+
             </FrameLayout>
         </LinearLayout>
 
     </FrameLayout>
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
