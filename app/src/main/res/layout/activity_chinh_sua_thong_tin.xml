@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/container_edit_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="917dp"
+            android:background="@drawable/container_dang_nhap"
+            android:gravity="left|top"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/container_edit_info_button"
+                android:layout_width="291dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="82dp"
+                android:layout_gravity="left">
+
+                <ImageView
+                    android:id="@+id/img_chevron_left"
+                    android:layout_width="17dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/image_arrow_left" />
+
+                <TextView
+                    android:id="@+id/txt_edit_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="71dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginBottom="-1dp"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Chỉnh sửa thông tin"
+                    android:textColor="#FF000000"
+                    android:textSize="24dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/container_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="75.53dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginTop="29dp">
+
+                <ImageView
+                    android:id="@+id/img_full_name_bg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/img_full_name_bg1"
+                    android:scaleType="centerCrop" />
+
+
+
+                <TextView
+                    android:id="@+id/txt_full_name"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="43dp"
+                    android:layout_marginTop="27.95dp"
+                    android:layout_marginBottom="17.58dp"
+                    android:layout_gravity="left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:hint="Minhee"
+                    android:textColor="#FF000000"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/txt_username"
+                    android:layout_width="116dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Tên tài khoản"
+                    android:textColor="#FF000000"
+                    android:textSize="18dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/container_birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginTop="18.47dp">
+
+                <ImageView
+                    android:id="@+id/img_birth_bg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/img_birth_bg1"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/img_birth_bg2"
+                    android:layout_width="92dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_gravity="top|left"
+                    android:background="@drawable/img_birth_bg2"
+                    android:scaleType="centerInside" />
+
+                <TextView
+                    android:id="@+id/txt_birth_date"
+                    android:layout_width="174dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginBottom="21dp"
+                    android:layout_gravity="left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="06 / 05 / 2003"
+                    android:textColor="#FF000000"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/txt_birth_label"
+                    android:layout_width="110dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="26dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Ngày sinh"
+                    android:textColor="#FF000000"
+                    android:textSize="18dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/container_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginTop="18dp">
+
+                <ImageView
+                    android:id="@+id/img_phone_bg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/img_phone_bg1"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/img_phone_bg2"
+                    android:layout_width="121dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_gravity="top|left"
+                    android:background="@drawable/img_phone_bg2"
+                    android:scaleType="centerInside" />
+
+                <TextView
+                    android:id="@+id/txt_phone_number"
+                    android:layout_width="174dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginBottom="21dp"
+                    android:layout_gravity="left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="09036637660"
+                    android:textColor="#FF000000"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/txt_phone_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="26dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Số điện thoại"
+                    android:textColor="#FF000000"
+                    android:textSize="18dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/container_address"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginTop="29dp">
+
+                <ImageView
+                    android:id="@+id/img_address_bg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/img_address_bg1"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/img_address_bg2"
+                    android:layout_width="63dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_gravity="top|left"
+                    android:background="@drawable/img_address_bg2"
+                    android:scaleType="centerInside" />
+
+                <TextView
+                    android:id="@+id/txt_full_address"
+                    android:layout_width="303dp"
+                    android:layout_height="84dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginRight="29dp"
+                    android:layout_marginTop="37dp"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="left|top"
+                    android:includeFontPadding="false"
+                    android:lineHeight="28.13dp"
+                    android:text="123 Phạm Văn Đồng, phường 13, quận Bình Thạnh, TP.HCM"
+                    android:textColor="#FF000000"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/txt_address_label"
+                    android:layout_width="79dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="26dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Địa chỉ"
+                    android:textColor="#FF000000"
+                    android:textSize="18dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/container_change_button"
+                android:layout_width="338dp"
+                android:layout_height="55dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/container_change_button">
+
+                <ImageView
+                    android:id="@+id/img_change_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/img_change_bg"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/txt_change"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="119.5dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Thay đổi"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="24dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+
+</ScrollView>

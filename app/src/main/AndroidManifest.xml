@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Android_DoAn"
         tools:targetApi="31">
         <activity
+            android:name=".ui.profile.ChinhSuaThongTinActivity"
+            android:exported="false" />
+        <activity
             android:name=".QuenMatKhauActivity"
             android:exported="false" />
         <activity
@@ -32,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".HoSoNguoiDungActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

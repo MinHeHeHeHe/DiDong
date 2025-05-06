@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android_doan.databinding.FragmentProfileBinding;
+import android.content.Intent;
+import com.example.android_doan.ui.profile.ChinhSuaThongTinActivity;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -24,8 +27,11 @@ public class ProfileFragment extends Fragment {
         View root = binding.getRoot();
 
         // Ví dụ cập nhật nội dung text bằng ViewModel
-        profileViewModel.getText().observe(getViewLifecycleOwner(), text ->
-                binding.textProfileTitle.setText(text));
+        binding.textChinhSuaThongTin.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChinhSuaThongTinActivity.class);
+            startActivity(intent);
+        });
+
 
         return root;
     }
