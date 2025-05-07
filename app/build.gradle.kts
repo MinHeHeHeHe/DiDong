@@ -47,5 +47,6 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.retrofit)
     implementation(libs.retrofitGson)
+    implementation(libs.okhttp)
 }
 
