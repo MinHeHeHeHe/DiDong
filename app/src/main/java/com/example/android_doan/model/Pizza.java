@@ -1,4 +1,4 @@
-package com.example.android_doan;
+package com.example.android_doan.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
