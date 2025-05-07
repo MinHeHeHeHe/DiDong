@@ -256,7 +256,9 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:id="@+id/textGopY"
+                    android:background="@drawable/background_chinh_sua_thong_tin">
 
                     <ImageView
                         android:layout_width="match_parent"

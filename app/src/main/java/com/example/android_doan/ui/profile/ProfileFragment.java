@@ -26,11 +26,18 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Ví dụ cập nhật nội dung text bằng ViewModel
+        //Sự kiện nhấn chỉnh sửa hồ sơ
         binding.textChinhSuaThongTin.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ChinhSuaThongTinActivity.class);
             startActivity(intent);
         });
+
+        //Sự kiện nhấn chỉnh góp ý
+        binding.textGopY.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), GopYActivity.class);
+            startActivity(intent);
+        });
+
 
 
         return root;
