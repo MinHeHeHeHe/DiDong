@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.android_doan.DangNhapActivity;
 import com.example.android_doan.databinding.FragmentProfileBinding;
 import android.content.Intent;
 import com.example.android_doan.ui.profile.ChinhSuaThongTinActivity;
@@ -38,7 +39,7 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         });
 
-
+        // Sự kiện nhấn đăng xuất
 
         return root;
     }

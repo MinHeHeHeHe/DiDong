@@ -6,7 +6,9 @@ import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
 import com.example.android_doan.LoginRequest;
 import com.example.android_doan.LoginResponse;
-import com.example.android_doan.LogoutResponse;
+import com.example.android_doan.ui.profile.LogoutResponse;
+import com.example.android_doan.RegisterRequest;
+import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.model.Pizza;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,6 +18,9 @@ import retrofit2.http.GET;
 public interface ApiService {
     @POST("api/user/login")
     Call<LoginResponse> login(@Body LoginRequest request);
+
+    @POST("api/user/createUser")
+    Call<RegisterResponse> register(@Body RegisterRequest request);
 
     @POST("api/user/logout")
     Call<LogoutResponse> logout();

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,9 +12,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
     <FrameLayout
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      android:id="@+id/container_register"
+        android:id="@+id/container_register"
       android:layout_width="match_parent"
       android:layout_height="917dp"
       android:background="@drawable/container_dang_ky">
@@ -139,14 +139,14 @@
       </FrameLayout>
 
       <ImageView
-        android:id="@+id/image_eye_slash"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="67dp"
-        android:layout_marginTop="282dp"
-        android:layout_gravity="top|right"
-        android:scaleType="centerInside"
-        android:src="@drawable/image_eye_slash" />
+          android:id="@+id/image_eye_slash"
+          android:layout_width="20dp"
+          android:layout_height="21dp"
+          android:layout_gravity="top|right"
+          android:layout_marginTop="282dp"
+          android:layout_marginRight="67dp"
+          android:scaleType="centerInside"
+          android:src="@drawable/image_eye_slash" />
     </FrameLayout>
   </FrameLayout>
 
