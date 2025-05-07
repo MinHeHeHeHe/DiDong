@@ -22,7 +22,8 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="false">
+
 
         </activity>
         <activity
@@ -30,7 +31,9 @@
             android:exported="false" /> <!-- Đăng ký LoginActivity -->
         <activity
             android:name=".DangNhapActivity"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:name=".HoSoNguoiDungActivity"
             android:exported="false" />
@@ -43,6 +46,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

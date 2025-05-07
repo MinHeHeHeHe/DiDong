@@ -1,11 +1,11 @@
-package com.example.android_doan;
+package com.example.android_doan.network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://52.64.221.135:3000/";
+    private static final String BASE_URL = "http://10.0.2.2:3000/";
 
     public static ApiService getApiService() {
         if (retrofit == null) {

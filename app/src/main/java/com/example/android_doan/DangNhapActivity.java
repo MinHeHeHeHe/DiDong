@@ -1,21 +1,32 @@
 package com.example.android_doan;
 
 import android.os.Bundle;
-
+import android.widget.Button;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import android.content.Intent;
 import android.widget.TextView;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
-import android.view.View;
+import android.widget.EditText;
 
+import com.example.android_doan.network.ApiService;
+import com.example.android_doan.network.RetrofitClient;
+import com.example.android_doan.LoginRequest;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DangNhapActivity extends AppCompatActivity {
-
+    private EditText edtEmail, edtPassword;
+    private Button btnDangNhap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +37,42 @@ public class DangNhapActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        edtEmail = findViewById(R.id.txtEmail);
+        edtPassword = findViewById(R.id.txtMatKhau);
+        Button btnDangNhap = findViewById(R.id.button_rectangle);
+        btnDangNhap.setOnClickListener(v -> {
+            String email = edtEmail.getText().toString().trim();
+            String password = edtPassword.getText().toString().trim();
+            // Tạo sẵn tài khoản test
+            LoginRequest request = new LoginRequest(email, password);
+
+            ApiService apiService = RetrofitClient.getApiService();
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập đầy đủ email và mật khẩu", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            apiService.login(request).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        String username = response.body().getUser().getUsername();
+                        Toast.makeText(DangNhapActivity.this, "Chào " + username, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(DangNhapActivity.this, HoSoNguoiDungActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(DangNhapActivity.this, "Sai email hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Toast.makeText(DangNhapActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
 
         // Gắn sự kiện click cho TextView "Đăng ký ngay"
         TextView tvDangKy = findViewById(R.id.text_chua_co_tai_khoan);
