@@ -1,7 +1,8 @@
-package com.example.android_doan;
+package com.example.android_doan.Activity;
 
 import android.os.Bundle;
 
+import com.example.android_doan.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

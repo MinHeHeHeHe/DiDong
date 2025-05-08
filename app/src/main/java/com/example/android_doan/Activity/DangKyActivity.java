@@ -1,16 +1,21 @@
-package com.example.android_doan;
+package com.example.android_doan.Activity;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.android_doan.R;
+import com.example.android_doan.RegisterRequest;
+import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
 
@@ -68,7 +73,7 @@ public class DangKyActivity extends AppCompatActivity {
                     email,
                     "Chưa cập nhật",            // address
                     "2000-01-01",               // date_of_birth
-                    "admin"
+                    "user"
             );
 
 
@@ -96,6 +101,20 @@ public class DangKyActivity extends AppCompatActivity {
         imgBack.setOnClickListener(v -> {
             finish(); // Quay về fragment trước đó
         });
+
+        imgBack.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    v.setAlpha(0.6f); // làm mờ khi nhấn
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    v.setAlpha(1.0f); // trở lại bình thường
+                    break;
+            }
+            return false;
+        });
+
         // thêm sự kiện che mk
         ImageView imgEye = findViewById(R.id.image_eye_slash);
         edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance()); // mặc định ẩn

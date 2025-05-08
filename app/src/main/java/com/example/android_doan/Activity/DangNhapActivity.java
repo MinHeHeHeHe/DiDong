@@ -1,7 +1,10 @@
-package com.example.android_doan;
+package com.example.android_doan.Activity;
 
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 
@@ -16,9 +19,11 @@ import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.widget.EditText;
 
+import com.example.android_doan.LoginRequest;
+import com.example.android_doan.LoginResponse;
+import com.example.android_doan.R;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
-import com.example.android_doan.LoginRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,6 +61,12 @@ public class DangNhapActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         String username = response.body().getUser().getUsername();
+                        // Lưu token vào SharedPreferences ở đây
+                        String token = response.body().getToken();
+                        getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                                .edit()
+                                .putString("token", token)
+                                .apply();
                         Toast.makeText(DangNhapActivity.this, "Chào " + username, Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(DangNhapActivity.this, HoSoNguoiDungActivity.class);
@@ -113,6 +124,23 @@ public class DangNhapActivity extends AppCompatActivity {
             }
             return false;
         });
+        // thêm sự kiện che mk
+        ImageView imgEye = findViewById(R.id.image_eye_slash);
+        edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance()); // mặc định ẩn
 
+        imgEye.setOnClickListener(v -> {
+            if (edtPassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Hiện mật khẩu
+                edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                imgEye.setImageResource(R.drawable.image_eye_slash); // thay icon nếu có
+            } else {
+                // Ẩn mật khẩu
+                edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                imgEye.setImageResource(R.drawable.image_eye_slash); // icon mắt bị gạch
+            }
+
+            // Di chuyển con trỏ về cuối chuỗi
+            edtPassword.setSelection(edtPassword.getText().length());
+        });
     }
 }

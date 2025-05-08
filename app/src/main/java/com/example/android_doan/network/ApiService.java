@@ -6,10 +6,13 @@ import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
 import com.example.android_doan.LoginRequest;
 import com.example.android_doan.LoginResponse;
+import com.example.android_doan.ResetPasswordRequest;
+import com.example.android_doan.ResetPasswordResponse;
 import com.example.android_doan.ui.profile.LogoutResponse;
 import com.example.android_doan.RegisterRequest;
 import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.model.Pizza;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -25,8 +28,6 @@ public interface ApiService {
     @POST("api/user/logout")
     Call<LogoutResponse> logout();
 
-    @POST("api/user/forget-password")
-    Call<ForgotPasswordResponse> forgotPassword(@Body ForgotPasswordRequest request);
 
     @POST("api/user/reset-password")
     @GET("api/pizza/getAllPizza")
@@ -34,5 +35,12 @@ public interface ApiService {
 
     @POST("api/pizza/createPizza")
     Call<Pizza> createPizza(@Body Pizza request);
+
+    @POST("api/user/forget-password")
+    Call<ForgotPasswordResponse> forgotPassword(@Body ForgotPasswordRequest request);
+
+    @POST("api/user/reset-password")
+    Call<ResetPasswordResponse> resetPassword(@Body ResetPasswordRequest request);
+
 
 }

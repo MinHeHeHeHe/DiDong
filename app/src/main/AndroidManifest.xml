@@ -18,19 +18,19 @@
             android:name=".ui.profile.ChinhSuaThongTinActivity"
             android:exported="false" />
         <activity
-            android:name=".QuenMatKhauActivity"
+            android:name=".Activity.QuenMatKhauActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:exported="false">
 
 
         </activity>
         <activity
-            android:name=".DangKyActivity"
+            android:name=".Activity.DangKyActivity"
             android:exported="false" /> <!-- Đăng ký LoginActivity -->
         <activity
-            android:name=".DangNhapActivity"
+            android:name=".Activity.DangNhapActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HoSoNguoiDungActivity"
+            android:name=".Activity.HoSoNguoiDungActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

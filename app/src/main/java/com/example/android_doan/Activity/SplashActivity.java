@@ -1,17 +1,14 @@
-package com.example.android_doan;
+package com.example.android_doan.Activity;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.android_doan.R;
 
 public class SplashActivity extends AppCompatActivity {
     @Override
