@@ -69,7 +69,7 @@ public class DangNhapActivity extends AppCompatActivity {
                                 .apply();
                         Toast.makeText(DangNhapActivity.this, "Chào " + username, Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(DangNhapActivity.this, HoSoNguoiDungActivity.class);
+                        Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {

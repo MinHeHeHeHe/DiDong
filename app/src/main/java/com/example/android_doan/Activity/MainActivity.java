@@ -11,17 +11,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.android_doan.databinding.ActivityHoSoNguoiDungBinding;
+import com.example.android_doan.databinding.ActivityMainBinding;
 
-public class HoSoNguoiDungActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private ActivityHoSoNguoiDungBinding binding;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHoSoNguoiDungBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);

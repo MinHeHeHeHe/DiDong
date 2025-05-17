@@ -16,7 +16,7 @@
             android:id="@+id/container_edit_user_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/container_dang_nhap"
+            android:background="@drawable/container_bars"
             android:gravity="left|top"
             android:orientation="vertical">
 

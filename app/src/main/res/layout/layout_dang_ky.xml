@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,22 +9,23 @@
 
   <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
 
+      android:layout_height="wrap_content">
     <FrameLayout
         android:id="@+id/container_register"
-        android:layout_width="match_parent"
-        android:layout_height="917dp"
-        android:background="@drawable/container_dang_ky">
+      android:layout_width="match_parent"
+      android:layout_height="917dp"
+      android:background="@drawable/container_bars">
 
       <FrameLayout
-          android:id="@+id/container_group1"
-          android:layout_width="326dp"
-          android:layout_height="56dp"
-          android:layout_marginLeft="43dp"
-          android:layout_marginTop="441dp"
-          android:layout_gravity="top|left"
-          android:background="@drawable/dangnhap_container_group1">
+        android:id="@+id/container_group1"
+        android:layout_width="326dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="441dp"
+        android:layout_gravity="top|left"
+        android:background="@drawable/container_group1">
+
 
         <Button
             android:id="@+id/button_rectangle1"
@@ -33,11 +33,15 @@
             android:layout_height="match_parent"
             android:background="@drawable/image_rectangle1"
             android:contentDescription="Rectangle Button"
-            android:padding="0dp"
-            android:scaleType="centerCrop"
-            android:text="Đăng ký"
+            android:gravity="center"
+            android:text="@string/dang_ky"
             android:textColor="@color/white"
-            android:textColorLink="@color/white" />
+
+
+            android:clickable="true"
+            android:focusable="true"/>
+
+
       </FrameLayout>
 
       <FrameLayout
@@ -62,30 +66,32 @@
             android:src="@drawable/image_arrow_left" />
 
         <TextView
-            android:id="@+id/text_register_nav"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginTop="-9.5dp"
-            android:layout_marginBottom="-9.5dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="Đăng ký"
-            android:textColor="#FF090A0A"
-            android:textSize="30dp" />
+
+          android:id="@+id/text_register_nav"
+          android:layout_width="wrap_content"
+          android:layout_height="37dp"
+          android:layout_marginRight="1dp"
+          android:layout_marginTop="-9.5dp"
+          android:layout_marginBottom="-9.5dp"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:includeFontPadding="false"
+          android:maxLines="1"
+          android:singleLine="true"
+          android:text="Đăng ký"
+          android:textColor="#FF090A0A"
+          android:textSize="30sp" />
       </FrameLayout>
 
       <FrameLayout
-          android:id="@+id/container_group2"
-          android:layout_width="327dp"
-          android:layout_height="56dp"
-          android:layout_marginLeft="43dp"
-          android:layout_marginTop="186dp"
-          android:layout_gravity="top|left"
-          android:background="@drawable/dangnhap_container_group2">
+        android:id="@+id/container_group2"
+        android:layout_width="327dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="186dp"
+        android:layout_gravity="top|left"
+        android:background="@drawable/container_group1">
+
 
         <EditText
             android:id="@+id/txt_DangKy_Email"

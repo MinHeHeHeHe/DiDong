@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,8 +24,10 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final ConstraintLayout layout = binding.textHome;
+        homeViewModel.getText().observe(getViewLifecycleOwner(), text -> {
+            layout.setAlpha(0.5f); // làm mờ layout
+        });
         return root;
     }
 
