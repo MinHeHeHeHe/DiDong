@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
     private RecyclerView pizzaRecyclerView;
     private PizzaAdapter pizzaAdapter;
     private EditText nameInput, descriptionInput, sizeInput, crustTypeInput, toppingsInput, priceInput;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_test);
 
         // Initialize UI components
         pizzaRecyclerView = findViewById(R.id.pizzaRecyclerView);
@@ -66,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Pizza>> call, Response<List<Pizza>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     pizzaAdapter.updatePizzas(response.body());
-                    Toast.makeText(MainActivity.this, "Pizzas loaded: " + response.body().size(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TestActivity.this, "Pizzas loaded: " + response.body().size(), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Failed to load pizzas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TestActivity.this, "Failed to load pizzas", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Pizza>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(TestActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -104,17 +104,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Pizza> call, Response<Pizza> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(MainActivity.this, "Pizza created: " + response.body().getName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TestActivity.this, "Pizza created: " + response.body().getName(), Toast.LENGTH_SHORT).show();
                     fetchPizzas(); // Refresh list
                     clearInputs();
                 } else {
-                    Toast.makeText(MainActivity.this, "Failed to create pizza", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TestActivity.this, "Failed to create pizza", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Pizza> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(TestActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

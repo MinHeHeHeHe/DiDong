@@ -14,7 +14,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="917dp"
-            android:background="@drawable/container_dang_nhap">
+            android:background="@drawable/container_bars">
 
 
             <ImageView

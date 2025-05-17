@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_splash);
 
-        // Sử dụng Handler để delay 2 giây trước khi chuyển đến MainActivity
+        // Sử dụng Handler để delay 2 giây trước khi chuyển đến TestActivity
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
