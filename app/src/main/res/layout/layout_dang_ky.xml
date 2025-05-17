@@ -11,20 +11,21 @@
   <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent">
+
     <FrameLayout
         android:id="@+id/container_register"
-      android:layout_width="match_parent"
-      android:layout_height="917dp"
-      android:background="@drawable/container_dang_ky">
+        android:layout_width="match_parent"
+        android:layout_height="917dp"
+        android:background="@drawable/container_dang_ky">
 
       <FrameLayout
-        android:id="@+id/container_group1"
-        android:layout_width="326dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="441dp"
-        android:layout_gravity="top|left"
-        android:background="@drawable/dangnhap_container_group1">
+          android:id="@+id/container_group1"
+          android:layout_width="326dp"
+          android:layout_height="56dp"
+          android:layout_marginLeft="43dp"
+          android:layout_marginTop="441dp"
+          android:layout_gravity="top|left"
+          android:background="@drawable/dangnhap_container_group1">
 
         <Button
             android:id="@+id/button_rectangle1"
@@ -37,55 +38,54 @@
             android:text="Đăng ký"
             android:textColor="@color/white"
             android:textColorLink="@color/white" />
-
       </FrameLayout>
 
       <FrameLayout
-        android:id="@+id/container_bars"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="91dp"
-        android:layout_gravity="top"
-        android:background="@drawable/container_bars">
+          android:id="@+id/container_bars"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:layout_marginLeft="18dp"
+          android:layout_marginRight="18dp"
+          android:layout_marginTop="91dp"
+          android:layout_gravity="top"
+          android:background="@drawable/container_bars">
 
         <ImageView
-          android:id="@+id/image_arrow_left"
-          android:layout_width="24.06dp"
-          android:layout_height="24dp"
-          android:layout_marginLeft="24.06dp"
-          android:layout_marginRight="327.87dp"
-          android:layout_marginTop="12dp"
-          android:layout_marginBottom="12dp"
-          android:scaleType="centerInside"
-          android:src="@drawable/image_arrow_left" />
+            android:id="@+id/image_arrow_left"
+            android:layout_width="24.06dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="24.06dp"
+            android:layout_marginRight="327.87dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/image_arrow_left" />
 
         <TextView
-          android:id="@+id/text_register_nav"
-          android:layout_width="wrap_content"
-          android:layout_height="37dp"
-          android:layout_marginRight="1dp"
-          android:layout_marginTop="-9.5dp"
-          android:layout_marginBottom="-9.5dp"
-          android:layout_gravity="center"
-          android:gravity="center"
-          android:includeFontPadding="false"
-          android:maxLines="1"
-          android:singleLine="true"
-          android:text="Đăng ký"
-          android:textColor="#FF090A0A"
-          android:textSize="30dp" />
+            android:id="@+id/text_register_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="-9.5dp"
+            android:layout_marginBottom="-9.5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="Đăng ký"
+            android:textColor="#FF090A0A"
+            android:textSize="30dp" />
       </FrameLayout>
 
       <FrameLayout
-        android:id="@+id/container_group2"
-        android:layout_width="327dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="186dp"
-        android:layout_gravity="top|left"
-        android:background="@drawable/dangnhap_container_group2">
+          android:id="@+id/container_group2"
+          android:layout_width="327dp"
+          android:layout_height="56dp"
+          android:layout_marginLeft="43dp"
+          android:layout_marginTop="186dp"
+          android:layout_gravity="top|left"
+          android:background="@drawable/dangnhap_container_group2">
 
         <EditText
             android:id="@+id/txt_DangKy_Email"
@@ -99,13 +99,13 @@
       </FrameLayout>
 
       <FrameLayout
-        android:id="@+id/container_group3"
-        android:layout_width="327dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="264dp"
-        android:layout_gravity="top|left"
-        android:background="@drawable/container_group1">
+          android:id="@+id/container_group3"
+          android:layout_width="327dp"
+          android:layout_height="56dp"
+          android:layout_marginLeft="40dp"
+          android:layout_marginTop="264dp"
+          android:layout_gravity="top|left"
+          android:background="@drawable/container_group1">
 
         <EditText
             android:id="@+id/txt_DangKy_MatKhau"
@@ -119,13 +119,13 @@
       </FrameLayout>
 
       <FrameLayout
-        android:id="@+id/container_group4"
-        android:layout_width="327dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="342dp"
-        android:layout_gravity="top|left"
-        android:background="@drawable/container_group1">
+          android:id="@+id/container_group4"
+          android:layout_width="327dp"
+          android:layout_height="56dp"
+          android:layout_marginLeft="42dp"
+          android:layout_marginTop="342dp"
+          android:layout_gravity="top|left"
+          android:background="@drawable/container_group1">
 
         <EditText
             android:id="@+id/txt_DangKy_NhapLaiMatKhau"
@@ -138,6 +138,18 @@
             android:inputType="text" />
       </FrameLayout>
 
+      <!-- Thêm icon che mắt cho Nhập lại mật khẩu -->
+      <ImageView
+          android:id="@+id/image_eye_slash_repeat"
+          android:layout_width="20dp"
+          android:layout_height="21dp"
+          android:layout_gravity="top|right"
+          android:layout_marginTop="360dp"
+          android:layout_marginRight="67dp"
+          android:scaleType="centerInside"
+          android:src="@drawable/image_eye_slash" />
+      <!--  Kết thúc phần thêm mới -->
+
       <ImageView
           android:id="@+id/image_eye_slash"
           android:layout_width="20dp"
@@ -147,7 +159,7 @@
           android:layout_marginRight="67dp"
           android:scaleType="centerInside"
           android:src="@drawable/image_eye_slash" />
+
     </FrameLayout>
   </FrameLayout>
-
 </ScrollView>

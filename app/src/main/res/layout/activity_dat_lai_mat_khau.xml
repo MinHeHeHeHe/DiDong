@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/datlaimatkhau"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/container_reset_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/container_bars"
+            android:paddingBottom="32dp">
+
+            <!-- HEADER -->
+            <FrameLayout
+                android:id="@+id/container_bars_nav_standard"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="91dp"
+                android:background="@drawable/container_bars">
+
+                <TextView
+                    android:id="@+id/text_reset_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Đặt lại mật khẩu"
+                    android:textColor="#FF090A0A"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <!-- MẬT KHẨU MỚI -->
+            <FrameLayout
+                android:layout_width="325dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/container_group1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_rectangle2" />
+
+                <EditText
+                    android:id="@+id/txtNewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Mật khẩu mới"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="40dp"
+                    android:background="@android:color/transparent"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:inputType="textPassword" />
+
+                <ImageView
+                    android:id="@+id/image_eye_slash"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/image_eye_slash" />
+            </FrameLayout>
+
+            <!-- NHẬP LẠI MẬT KHẨU -->
+            <FrameLayout
+                android:layout_width="325dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/container_group1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_rectangle2" />
+
+                <EditText
+                    android:id="@+id/txtRepeatPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Nhập lại mật khẩu"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="40dp"
+                    android:background="@android:color/transparent"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:inputType="textPassword" />
+
+                <ImageView
+                    android:id="@+id/image_eye_slash_repeat"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/image_eye_slash" />
+            </FrameLayout>
+
+            <!-- BUTTON XÁC NHẬN MẬT KHẨU MỚI -->
+            <FrameLayout
+                android:layout_width="326dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/container_group1">
+
+                <Button
+                    android:id="@+id/btnConfirmNewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Xác nhận mật khẩu mới"
+                    android:textColor="#FFFFFFFF"
+                    android:background="@drawable/image_rectangle1"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</ScrollView>

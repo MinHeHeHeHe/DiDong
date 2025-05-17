@@ -1,5 +1,6 @@
 package com.example.android_doan.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -18,22 +19,15 @@ import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
 import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
-import com.example.android_doan.ResetPasswordRequest;
-import com.example.android_doan.ResetPasswordResponse;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-
-
 public class QuenMatKhauActivity extends AppCompatActivity {
 
-    private EditText edtEmail, edtCode, edtNewPassword, edtConfirmPassword;
-    private Button btnVerifyEmail, btnConfirmPassword;
+    private EditText edtEmail, edtCode;
+    private Button btnVerifyEmail, btnXacNhanMa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,49 +45,17 @@ public class QuenMatKhauActivity extends AppCompatActivity {
         ImageView imgBack = findViewById(R.id.image_arrow_left);
         edtEmail = findViewById(R.id.txtQuenMatKhau_Email);
         edtCode = findViewById(R.id.txtQuenMatKhau_MaXacThuc);
-        edtNewPassword = findViewById(R.id.txtQuenMatKhau_MatKhauMoi);
-        edtConfirmPassword = findViewById(R.id.txtQuenMatKhau_MatKhauLai);
         btnVerifyEmail = findViewById(R.id.btn_verify_email);
-        btnConfirmPassword = findViewById(R.id.btn_confirm_new_password);
+        btnXacNhanMa = findViewById(R.id.btn_xacnhan_ma_xacthuc);
 
-        ImageView imgEye = findViewById(R.id.image_eye_slash);
-        edtNewPassword.setTransformationMethod(PasswordTransformationMethod.getInstance()); // Mặc định ẩn
-
-        imgEye.setOnClickListener(v -> {
-            if (edtNewPassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
-                edtNewPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                imgEye.setImageResource(R.drawable.image_eye_slash); // icon mắt mở (nếu có)
-            } else {
-                edtNewPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                imgEye.setImageResource(R.drawable.image_eye_slash); // icon mắt đóng
-            }
-            edtNewPassword.setSelection(edtNewPassword.getText().length());
-        });
-
-        ImageView imgEye2 = findViewById(R.id.image_eye_slash1);
-        edtConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-
-        imgEye2.setOnClickListener(v -> {
-            if (edtConfirmPassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
-                edtConfirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                imgEye2.setImageResource(R.drawable.image_eye_slash); // icon mắt mở
-            } else {
-                edtConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                imgEye2.setImageResource(R.drawable.image_eye_slash); // icon mắt gạch
-            }
-            edtConfirmPassword.setSelection(edtConfirmPassword.getText().length());
-        });
-
-
-        // Nút quay lại
+        // Quay lại
         imgBack.setOnClickListener(v -> finish());
         imgBack.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) v.setAlpha(0.6f);
-            else v.setAlpha(1.0f);
+            v.setAlpha(event.getAction() == MotionEvent.ACTION_DOWN ? 0.6f : 1.0f);
             return false;
         });
 
-        // Gửi mã xác thực qua email
+        // Gửi mã xác thực
         btnVerifyEmail.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             if (email.isEmpty()) {
@@ -120,40 +82,35 @@ public class QuenMatKhauActivity extends AppCompatActivity {
                     });
         });
 
-        // Đổi mật khẩu mới
-        btnConfirmPassword.setOnClickListener(v -> {
+        btnXacNhanMa.setOnClickListener(v -> {
             String code = edtCode.getText().toString().trim();
-            String newPassword = edtNewPassword.getText().toString().trim();
-            String confirm = edtConfirmPassword.getText().toString().trim();
 
-            if (code.isEmpty() || newPassword.isEmpty() || confirm.isEmpty()) {
-                Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            if (code.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập mã xác thực", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (!newPassword.equals(confirm)) {
-                Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
+            // Gọi API xác thực mã
             ApiService apiService = RetrofitClient.getApiService();
-            apiService.resetPassword(new ResetPasswordRequest(code, newPassword))
-                    .enqueue(new Callback<ResetPasswordResponse>() {
-                        @Override
-                        public void onResponse(Call<ResetPasswordResponse> call, Response<ResetPasswordResponse> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(QuenMatKhauActivity.this, "Đặt lại mật khẩu thành công!", Toast.LENGTH_SHORT).show();
-                                finish(); // Quay về màn hình đăng nhập
-                            } else {
-                                Toast.makeText(QuenMatKhauActivity.this, "Mã xác thực không đúng hoặc hết hạn!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<ResetPasswordResponse> call, Throwable t) {
-                            Toast.makeText(QuenMatKhauActivity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            apiService.verifyCode(code).enqueue(new Callback<ForgotPasswordResponse>() {
+                @Override
+                public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
+                    if (response.isSuccessful()) {
+                        // Nếu mã hợp lệ → chuyển màn hình
+                        Intent intent = new Intent(QuenMatKhauActivity.this, DatLaiMatKhauActivity.class);
+                        intent.putExtra("code", code);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(QuenMatKhauActivity.this, "Mã xác thực không hợp lệ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
+                    Toast.makeText(QuenMatKhauActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 }

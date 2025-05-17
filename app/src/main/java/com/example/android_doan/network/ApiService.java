@@ -39,6 +39,9 @@ public interface ApiService {
     @POST("api/user/forget-password")
     Call<ForgotPasswordResponse> forgotPassword(@Body ForgotPasswordRequest request);
 
+    @POST("api/user/verify-code")
+    Call<ForgotPasswordResponse> verifyCode(@Body String code);
+
     @POST("api/user/reset-password")
     Call<ResetPasswordResponse> resetPassword(@Body ResetPasswordRequest request);
 

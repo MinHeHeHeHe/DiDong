@@ -112,75 +112,7 @@
                     android:textSize="15sp" />
             </FrameLayout>
 
-            <!-- MẬT KHẨU MỚI -->
-            <FrameLayout
-                android:layout_width="327dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="42dp"
-                android:layout_marginTop="31dp"
-                android:layout_gravity="end">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/image_rectangle2" />
-
-                <EditText
-                    android:id="@+id/txtQuenMatKhau_MatKhauMoi"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Mật khẩu mới"
-                    android:inputType="textPassword"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="40dp"
-                    android:background="@android:color/transparent"
-                    android:textColor="#000000"
-                    android:textSize="15sp" />
-                <ImageView
-                    android:id="@+id/image_eye_slash"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/image_eye_slash" />
-
-            </FrameLayout>
-
-            <!-- NHẬP LẠI MẬT KHẨU -->
-            <FrameLayout
-                android:layout_width="327dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="42dp"
-                android:layout_marginTop="23dp"
-                android:layout_gravity="end">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/image_rectangle2" />
-
-                <EditText
-                    android:id="@+id/txtQuenMatKhau_MatKhauLai"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Nhập lại mật khẩu"
-                    android:inputType="textPassword"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="40dp"
-                    android:background="@android:color/transparent"
-                    android:textColor="#000000"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:id="@+id/image_eye_slash1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/image_eye_slash" />
-            </FrameLayout>
-
-            <!-- BUTTON XÁC NHẬN -->
+            <!-- BUTTON XÁC NHẬN MÃ XÁC THỰC -->
             <FrameLayout
                 android:layout_width="326dp"
                 android:layout_height="56dp"
@@ -189,10 +121,10 @@
                 android:background="@drawable/container_group1">
 
                 <Button
-                    android:id="@+id/btn_confirm_new_password"
+                    android:id="@+id/btn_xacnhan_ma_xacthuc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Xác nhận mật khẩu mới"
+                    android:text="Xác nhận mã xác thực"
                     android:textColor="#FFFFFFFF"
                     android:background="@drawable/image_rectangle1"
                     android:textSize="15sp"

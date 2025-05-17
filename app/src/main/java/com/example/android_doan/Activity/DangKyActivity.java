@@ -133,5 +133,23 @@ public class DangKyActivity extends AppCompatActivity {
             // Di chuyển con trỏ về cuối chuỗi
             edtPassword.setSelection(edtPassword.getText().length());
         });
+
+        ImageView imgEye1 = findViewById(R.id.image_eye_slash_repeat);
+        edtRePassword.setTransformationMethod(PasswordTransformationMethod.getInstance()); // mặc định ẩn
+
+        imgEye1.setOnClickListener(v -> {
+            if (edtRePassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Hiện mật khẩu
+                edtRePassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                imgEye1.setImageResource(R.drawable.image_eye_slash); // icon khi hiện
+            } else {
+                // Ẩn mật khẩu
+                edtRePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                imgEye1.setImageResource(R.drawable.image_eye_slash); // icon khi ẩn
+            }
+
+            edtRePassword.setSelection(edtRePassword.getText().length());
+        });
+
     }
 }
