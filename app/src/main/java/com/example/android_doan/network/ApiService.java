@@ -8,6 +8,7 @@ import com.example.android_doan.LoginRequest;
 import com.example.android_doan.LoginResponse;
 import com.example.android_doan.ResetPasswordRequest;
 import com.example.android_doan.ResetPasswordResponse;
+import com.example.android_doan.model.Drink;
 import com.example.android_doan.ui.profile.LogoutResponse;
 import com.example.android_doan.RegisterRequest;
 import com.example.android_doan.RegisterResponse;
@@ -29,9 +30,11 @@ public interface ApiService {
     Call<LogoutResponse> logout();
 
 
-    @POST("api/user/reset-password")
     @GET("api/pizza/getAllPizza")
     Call<List<Pizza>> getAllPizzas();
+
+    @GET("api/drink/getAllDrink")
+    Call<List<Drink>> getAllDrinks();
 
     @POST("api/pizza/createPizza")
     Call<Pizza> createPizza(@Body Pizza request);
@@ -39,8 +42,8 @@ public interface ApiService {
     @POST("api/user/forget-password")
     Call<ForgotPasswordResponse> forgotPassword(@Body ForgotPasswordRequest request);
 
-    @POST("api/user/verify-code")
-    Call<ForgotPasswordResponse> verifyCode(@Body String code);
+    //@POST("api/user/verify-code")
+    //Call<ForgotPasswordResponse> verifyCode(@Body String code);
 
     @POST("api/user/reset-password")
     Call<ResetPasswordResponse> resetPassword(@Body ResetPasswordRequest request);

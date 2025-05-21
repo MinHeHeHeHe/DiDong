@@ -56,7 +56,7 @@ public class QuenMatKhauActivity extends AppCompatActivity {
         });
 
         // Gửi mã xác thực
-        btnVerifyEmail.setOnClickListener(v -> {
+        /*btnVerifyEmail.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             if (email.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show();
@@ -112,5 +112,6 @@ public class QuenMatKhauActivity extends AppCompatActivity {
                 }
             });
         });
+         */
     }
 }

@@ -3,14 +3,20 @@ package com.example.android_doan.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
 
+import com.bumptech.glide.Glide;
+import com.example.android_doan.R;
 import com.example.android_doan.model.Pizza;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> {
+
     private List<Pizza> pizzas;
 
     public PizzaAdapter(List<Pizza> pizzas) {
@@ -20,22 +26,30 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     @NonNull
     @Override
     public PizzaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_home, parent, false);
         return new PizzaViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
         Pizza pizza = pizzas.get(position);
-        String displayText = String.format("Name: %s\nDescription: %s\nSize: %s\nCrust: %s\nToppings: %s\nPrice: $%.2f",
-                pizza.getName(), pizza.getDescription(), pizza.getSize(), pizza.getCrustType(),
-                String.join(", ", pizza.getToppings()), pizza.getBasePrice());
-        holder.textView.setText(displayText);
+        holder.txtName.setText(pizza.getName());
+        holder.txtPrice.setText("$" + pizza.getBasePrice());
+        // Load ảnh từ URL MongoDB (image_url)
+        if (pizza.getImageUrl() != null && !pizza.getImageUrl().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(pizza.getImageUrl())
+
+                    .into(holder.imgDish);
+        } else {
+            holder.imgDish.setImageResource(R.drawable.ic_launcher_background);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return pizzas.size();
+        return pizzas != null ? pizzas.size() : 0;
     }
 
     public void updatePizzas(List<Pizza> newPizzas) {
@@ -44,11 +58,14 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     }
 
     static class PizzaViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView txtName, txtPrice;
+        ImageView imgDish;
 
-        PizzaViewHolder(View itemView) {
+        public PizzaViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(android.R.id.text1);
+            txtName = itemView.findViewById(R.id.txt_name);
+            txtPrice = itemView.findViewById(R.id.txt_price);
+            imgDish = itemView.findViewById(R.id.img_dish);
         }
     }
 }

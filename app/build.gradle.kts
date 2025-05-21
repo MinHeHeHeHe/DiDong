@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+
 }
 
 android {
@@ -38,8 +39,6 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.material)
     implementation("com.google.android.material:material:1.9.0")
-
-
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
@@ -48,5 +47,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofitGson)
     implementation(libs.okhttp)
+    // ✅ Glide cho Kotlin DSL
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    
 }
 

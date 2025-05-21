@@ -34,7 +34,7 @@ public class OrdersFragment extends Fragment {
             layout.setAlpha(0.5f);
         });
 
-        // ✅ Thêm các tab vào TabLayout
+        //  Thêm các tab vào TabLayout
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Danh sách"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Thanh toán"));

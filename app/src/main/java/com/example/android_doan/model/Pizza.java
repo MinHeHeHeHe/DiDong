@@ -14,6 +14,8 @@ public class Pizza {
     private List<String> toppings;
     @SerializedName("base_price")
     private double basePrice;
+    @SerializedName("image_url")
+    private String imageUrl;
 
     // Getters
     public String getId() { return id; }
@@ -31,4 +33,9 @@ public class Pizza {
     public void setCrustType(String crustType) { this.crustType = crustType; }
     public void setToppings(List<String> toppings) { this.toppings = toppings; }
     public void setBasePrice(double basePrice) { this.basePrice = basePrice; }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
 }
