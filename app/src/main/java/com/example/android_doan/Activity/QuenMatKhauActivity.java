@@ -1,7 +1,9 @@
 package com.example.android_doan.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +16,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.android_doan.R;
-import com.example.android_doan.network.ApiService;
-import com.example.android_doan.network.RetrofitClient;
 import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
+import com.example.android_doan.R;
+import com.example.android_doan.VerifyCodeRequest;
+import com.example.android_doan.VerifyCodeResponse;
+import com.example.android_doan.network.ApiService;
+import com.example.android_doan.network.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,8 +72,22 @@ public class QuenMatKhauActivity extends AppCompatActivity {
                     .enqueue(new Callback<ForgotPasswordResponse>() {
                         @Override
                         public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(QuenMatKhauActivity.this, "Mã xác thực đã gửi!", Toast.LENGTH_SHORT).show();
+                            if (response.isSuccessful() && response.body() != null) {
+                                // In log JSON để kiểm tra có token không
+                                Log.d("FORGOT", "Token trả về: " + response.body().getToken());
+                                Log.d("FORGOT", "Message trả về: " + response.body().getMessage());
+
+                                String token = response.body().getToken();  //  Đảm bảo getToken() không null
+
+                                if (token != null && !token.isEmpty()) {
+                                    getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                                            .edit()
+                                            .putString("resetToken", token)
+                                            .apply();
+                                    Toast.makeText(QuenMatKhauActivity.this, "Mã xác thực đã gửi!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(QuenMatKhauActivity.this, "Token null. Backend không trả về!", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 Toast.makeText(QuenMatKhauActivity.this, "Không tìm thấy email!", Toast.LENGTH_SHORT).show();
                             }
@@ -82,35 +100,35 @@ public class QuenMatKhauActivity extends AppCompatActivity {
                     });
         });
 
-        btnXacNhanMa.setOnClickListener(v -> {
-            String code = edtCode.getText().toString().trim();
+        // Xác nhận mã
+        /*btnXacNhanMa.setOnClickListener(v -> {
+            String savedToken = getSharedPreferences("MyPrefs", MODE_PRIVATE).getString("resetToken", "");
+            Log.d("FORGOT", "Token đã lưu trong SharedPreferences: " + savedToken);
 
-            if (code.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập mã xác thực", Toast.LENGTH_SHORT).show();
+            if (savedToken.isEmpty()) {
+                Toast.makeText(this, "Không tìm thấy mã xác thực. Vui lòng gửi lại email.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Gọi API xác thực mã
             ApiService apiService = RetrofitClient.getApiService();
+            apiService.verifyCode(new VerifyCodeRequest(savedToken))
+                    .enqueue(new Callback<VerifyCodeResponse>() {
+                        @Override
+                        public void onResponse(Call<VerifyCodeResponse> call, Response<VerifyCodeResponse> response) {
+                            if (response.isSuccessful()) {
+                                Intent intent = new Intent(QuenMatKhauActivity.this, DatLaiMatKhauActivity.class);
+                                intent.putExtra("code", savedToken);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(QuenMatKhauActivity.this, "Mã xác thực không hợp lệ", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-            apiService.verifyCode(code).enqueue(new Callback<ForgotPasswordResponse>() {
-                @Override
-                public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
-                    if (response.isSuccessful()) {
-                        // Nếu mã hợp lệ → chuyển màn hình
-                        Intent intent = new Intent(QuenMatKhauActivity.this, DatLaiMatKhauActivity.class);
-                        intent.putExtra("code", code);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(QuenMatKhauActivity.this, "Mã xác thực không hợp lệ", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
-                    Toast.makeText(QuenMatKhauActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
+                        @Override
+                        public void onFailure(Call<VerifyCodeResponse> call, Throwable t) {
+                            Toast.makeText(QuenMatKhauActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }); */
     }
 }

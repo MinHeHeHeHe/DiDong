@@ -37,6 +37,7 @@ public class DangNhapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.layout_dang_nhap);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.dangnhap), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,6 +46,12 @@ public class DangNhapActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.txtEmail);
         edtPassword = findViewById(R.id.txtMatKhau);
         Button btnDangNhap = findViewById(R.id.button_rectangle);
+
+        Intent intent_checkmail = getIntent();
+        if (intent_checkmail != null && intent_checkmail.hasExtra("email")) {
+            edtEmail.setText(intent_checkmail.getStringExtra("email"));
+        }
+
         btnDangNhap.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
@@ -61,27 +68,40 @@ public class DangNhapActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         String username = response.body().getUser().getUsername();
-                        // Lưu token vào SharedPreferences ở đây
                         String token = response.body().getToken();
+                        String userId = response.body().getUser().getId();
+
+                        // Lưu token nếu cần
                         getSharedPreferences("MyPrefs", MODE_PRIVATE)
                                 .edit()
                                 .putString("token", token)
                                 .apply();
+
                         Toast.makeText(DangNhapActivity.this, "Chào " + username, Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        if ("defaultUsername".equals(username)) {
+                            // Username mặc định => qua màn hình bổ sung thông tin
+                            Intent intent = new Intent(DangNhapActivity.this, ThemThongTinCaNhanActivity.class);
+                            intent.putExtra("email", edtEmail.getText().toString().trim());
+                            intent.putExtra("password", edtPassword.getText().toString().trim());
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                        } else {
+                            //  Username đã chỉnh sửa => vào MainActivity (gắn với HomeFragment)
+                            startActivity(new Intent(DangNhapActivity.this, MainActivity.class));
+                        }
+
                         finish();
                     } else {
                         Toast.makeText(DangNhapActivity.this, "Sai email hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     Toast.makeText(DangNhapActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+
         });
 
 

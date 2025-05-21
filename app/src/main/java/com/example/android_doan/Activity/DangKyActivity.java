@@ -1,17 +1,14 @@
 package com.example.android_doan.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_doan.R;
 import com.example.android_doan.RegisterRequest;
@@ -22,10 +19,8 @@ import com.example.android_doan.network.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-
 
 public class DangKyActivity extends AppCompatActivity {
 
@@ -35,21 +30,18 @@ public class DangKyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.layout_dang_ky);
 
-        // Ánh xạ layout
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.button_rectangle1), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        // Gán ID các trường trong giao diện
         edtEmail = findViewById(R.id.txt_DangKy_Email);
         edtPassword = findViewById(R.id.txt_DangKy_MatKhau);
         edtRePassword = findViewById(R.id.txt_DangKy_NhapLaiMatKhau);
         btnDangKy = findViewById(R.id.button_rectangle1);
+
+        // Nhận lại dữ liệu từ Intent (nếu có)
+        Intent receivedIntent = getIntent();
+        edtEmail.setText(receivedIntent.getStringExtra("email"));
+        edtPassword.setText(receivedIntent.getStringExtra("password"));
+        edtRePassword.setText(receivedIntent.getStringExtra("rePassword"));
 
         btnDangKy.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
@@ -66,27 +58,22 @@ public class DangKyActivity extends AppCompatActivity {
                 return;
             }
 
-            // Tạo đối tượng request
+            // Nếu đăng ký thì gọi API createUser như bình thường
             RegisterRequest request = new RegisterRequest(
-                    "defaultUsername",          // username (tạm fix cứng)
-                    password,
-                    email,
-                    "Chưa cập nhật",            // address
-                    "2000-01-01",               // date_of_birth
-                    "user"
+                    "defaultUsername", password, email,
+                    "Chưa cập nhật", "2000-01-01", "0000", "user"
             );
 
-
-            // Gọi API
             ApiService apiService = RetrofitClient.getApiService();
             apiService.register(request).enqueue(new Callback<RegisterResponse>() {
                 @Override
                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        String userId = response.body().getId();
                         Toast.makeText(DangKyActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                        finish(); // Quay lại màn hình trước (đăng nhập)
+                        finish();
                     } else {
-                        Toast.makeText(DangKyActivity.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DangKyActivity.this, "Email đã được sử dụng!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -96,60 +83,22 @@ public class DangKyActivity extends AppCompatActivity {
                 }
             });
         });
-        // Gắn sự kiện cho nút quay lại
         ImageView imgBack = findViewById(R.id.image_arrow_left);
-        imgBack.setOnClickListener(v -> {
-            finish(); // Quay về fragment trước đó
-        });
+        imgBack.setOnClickListener(v -> finish());
 
-        imgBack.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    v.setAlpha(0.6f); // làm mờ khi nhấn
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    v.setAlpha(1.0f); // trở lại bình thường
-                    break;
-            }
-            return false;
-        });
-
-        // thêm sự kiện che mk
+        // Ẩn/hiện mật khẩu
         ImageView imgEye = findViewById(R.id.image_eye_slash);
-        edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance()); // mặc định ẩn
-
-        imgEye.setOnClickListener(v -> {
-            if (edtPassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
-                // Hiện mật khẩu
-                edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                imgEye.setImageResource(R.drawable.image_eye_slash); // thay icon nếu có
-            } else {
-                // Ẩn mật khẩu
-                edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                imgEye.setImageResource(R.drawable.image_eye_slash); // icon mắt bị gạch
-            }
-
-            // Di chuyển con trỏ về cuối chuỗi
-            edtPassword.setSelection(edtPassword.getText().length());
-        });
-
+        imgEye.setOnClickListener(v -> togglePasswordVisibility(edtPassword, imgEye));
         ImageView imgEye1 = findViewById(R.id.image_eye_slash_repeat);
-        edtRePassword.setTransformationMethod(PasswordTransformationMethod.getInstance()); // mặc định ẩn
+        imgEye1.setOnClickListener(v -> togglePasswordVisibility(edtRePassword, imgEye1));
+    }
 
-        imgEye1.setOnClickListener(v -> {
-            if (edtRePassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
-                // Hiện mật khẩu
-                edtRePassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                imgEye1.setImageResource(R.drawable.image_eye_slash); // icon khi hiện
-            } else {
-                // Ẩn mật khẩu
-                edtRePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                imgEye1.setImageResource(R.drawable.image_eye_slash); // icon khi ẩn
-            }
-
-            edtRePassword.setSelection(edtRePassword.getText().length());
-        });
-
+    private void togglePasswordVisibility(EditText editText, ImageView icon) {
+        if (editText.getTransformationMethod() instanceof PasswordTransformationMethod) {
+            editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+        editText.setSelection(editText.getText().length());
     }
 }

@@ -54,13 +54,11 @@
                     android:id="@+id/txtNewPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Mật khẩu mới"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="40dp"
                     android:background="@android:color/transparent"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:inputType="textPassword" />
+                    android:hint="Email"
+                    android:textColor="@android:color/black"
+                    android:padding="16dp"
+                    android:inputType="text" />
 
                 <ImageView
                     android:id="@+id/image_eye_slash"
@@ -88,13 +86,11 @@
                     android:id="@+id/txtRepeatPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Nhập lại mật khẩu"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="40dp"
                     android:background="@android:color/transparent"
+                    android:hint="Nhập lại mật khẩu"
                     android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:inputType="textPassword" />
+                    android:padding="16dp"
+                    android:inputType="text" />
 
                 <ImageView
                     android:id="@+id/image_eye_slash_repeat"

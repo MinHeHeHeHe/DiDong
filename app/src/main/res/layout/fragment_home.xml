@@ -231,7 +231,4 @@
             android:scrollbars="vertical"/>
     </LinearLayout>
 
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
