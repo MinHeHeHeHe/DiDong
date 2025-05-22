@@ -2,7 +2,7 @@ package com.example.android_doan.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Drink {
+public class SideDish {
     @SerializedName("_id")
     private String id;
     private String name;
@@ -18,7 +18,7 @@ public class Drink {
     public String getDescription() { return description; }
     public double getBasePrice() { return basePrice; }
 
-    // Setters (for createDrink)
+    // Setters (for createSideDish)
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
 

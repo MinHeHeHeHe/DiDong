@@ -2,8 +2,9 @@ package com.example.android_doan.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
+import java.io.Serializable;
 
-public class Pizza {
+public class Pizza implements Serializable {
     @SerializedName("_id")
     private String id;
     private String name;

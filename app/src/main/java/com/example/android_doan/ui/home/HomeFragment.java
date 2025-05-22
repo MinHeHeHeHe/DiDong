@@ -7,19 +7,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.android_doan.R;
-
-import com.example.android_doan.adapter.SaladAdapter;
-import com.example.android_doan.adapter.SideAdapter;
 import com.example.android_doan.adapter.DrinkAdapter;
 import com.example.android_doan.adapter.PizzaAdapter;
+import com.example.android_doan.adapter.SaladAdapter;
+import com.example.android_doan.adapter.SideDishAdapter;
 import com.example.android_doan.databinding.FragmentHomeBinding;
-
-import com.example.android_doan.model.Salad;
-import com.example.android_doan.model.Side;
 import com.example.android_doan.model.Drink;
 import com.example.android_doan.model.Pizza;
-
-
+import com.example.android_doan.model.Salad;
+import com.example.android_doan.model.SideDish;
 import com.example.android_doan.network.RetrofitClient;
 
 import androidx.annotation.NonNull;
@@ -40,35 +36,36 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private PizzaAdapter pizzaAdapter;
     private DrinkAdapter drinkAdapter;
-    private SideAdapter sideAdapter;
+    private SideDishAdapter sideDishAdapter;
     private SaladAdapter saladAdapter;
     private CardView selectedCard = null;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // RecyclerView setup
         RecyclerView recyclerView = binding.recyclerList;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         pizzaAdapter = new PizzaAdapter(new ArrayList<>());
         drinkAdapter = new DrinkAdapter(new ArrayList<>());
-        sideAdapter = new SideAdapter(new ArrayList<>());
+        sideDishAdapter = new SideDishAdapter(new ArrayList<>());
         saladAdapter = new SaladAdapter(new ArrayList<>());
-        recyclerView.setAdapter(pizzaAdapter); // mặc định là Pizza
 
-        // Gọi API Pizza mặc định
+        recyclerView.setAdapter(pizzaAdapter); // mặc định là pizza
         fetchPizzas();
 
-        // Thiết lập sự kiện cho từng loại
+        // Gán sự kiện chọn danh mục
         setupCategorySelection(binding.btnPizza, binding.cardPizza, "pizza");
         setupCategorySelection(binding.btnDrink, binding.cardDrink, "drink");
         setupCategorySelection(binding.btnSide, binding.cardSide, "side");
         setupCategorySelection(binding.btnSalad, binding.cardSalad, "salad");
 
-        // Gọi chọn mặc định Pizza
+        // Chọn mặc định là Pizza
         binding.btnPizza.performClick();
 
         return root;
@@ -86,7 +83,7 @@ public class HomeFragment extends Fragment {
                 cardView.setCardBackgroundColor(getResources().getColor(R.color.light_gray));
                 selectedCard = cardView;
 
-                // Tải dữ liệu tương ứng
+                // Tải dữ liệu theo danh mục
                 switch (type) {
                     case "pizza":
                         binding.recyclerList.setAdapter(pizzaAdapter);
@@ -97,15 +94,12 @@ public class HomeFragment extends Fragment {
                         fetchDrinks();
                         break;
                     case "side":
-                        binding.recyclerList.setAdapter(sideAdapter);
-                        fetchSides();
+                        binding.recyclerList.setAdapter(sideDishAdapter);
+                        fetchSideDishes();
                         break;
                     case "salad":
                         binding.recyclerList.setAdapter(saladAdapter);
                         fetchSalads();
-                        break;
-                    default:
-                        Toast.makeText(getContext(), "Loại món không xác định!", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -148,27 +142,26 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
-    private void fetchSides() {
-        RetrofitClient.getApiService().getAllSides().enqueue(new Callback<List<Side>>() {
+    private void fetchSideDishes() {
+        RetrofitClient.getApiService().getAllSide().enqueue(new Callback<List<SideDish>>() {
             @Override
-            public void onResponse(Call<List<Side>> call, Response<List<Side>> response) {
+            public void onResponse(Call<List<SideDish>> call, Response<List<SideDish>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    sideAdapter.updateSides(response.body());
+                    sideDishAdapter.updateSideDishes(response.body());
                 } else {
                     Toast.makeText(getContext(), "Lỗi tải món ăn kèm", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Side>> call, Throwable t) {
+            public void onFailure(Call<List<SideDish>> call, Throwable t) {
                 Toast.makeText(getContext(), "Không thể kết nối máy chủ", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void fetchSalads() {
-        RetrofitClient.getApiService().getAllSalads().enqueue(new Callback<List<Salad>>() {
+        RetrofitClient.getApiService().getAllSalad().enqueue(new Callback<List<Salad>>() {
             @Override
             public void onResponse(Call<List<Salad>> call, Response<List<Salad>> response) {
                 if (response.isSuccessful() && response.body() != null) {

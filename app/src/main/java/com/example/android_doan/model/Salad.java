@@ -18,7 +18,7 @@ public class Salad {
     public String getDescription() { return description; }
     public double getBasePrice() { return basePrice; }
 
-    // Setters
+    // Setters (for createSalad)
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
 

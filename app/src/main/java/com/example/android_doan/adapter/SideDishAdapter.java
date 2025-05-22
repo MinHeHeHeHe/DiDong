@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.android_doan.R;
-import com.example.android_doan.model.Salad;
+import com.example.android_doan.model.SideDish;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,27 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaladAdapter extends RecyclerView.Adapter<SaladAdapter.SaladViewHolder> {
+public class SideDishAdapter extends RecyclerView.Adapter<SideDishAdapter.SideDishViewHolder> {
 
-    private List<Salad> salads = new ArrayList<>();
+    private List<SideDish> sideDishes = new ArrayList<>();
 
-    public SaladAdapter(List<Salad> salads) {
-        if (salads != null) {
-            this.salads = salads;
+    public SideDishAdapter(List<SideDish> sideDishes) {
+        if (sideDishes != null) {
+            this.sideDishes = sideDishes;
         }
     }
 
     @NonNull
     @Override
-    public SaladViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SideDishViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_home, parent, false);
-        return new SaladViewHolder(view);
+        return new SideDishViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SaladViewHolder holder, int position) {
-        Salad item = salads.get(position);
+    public void onBindViewHolder(@NonNull SideDishViewHolder holder, int position) {
+        SideDish item = sideDishes.get(position);
         holder.txtName.setText(item.getName());
         holder.txtPrice.setText("$" + item.getBasePrice());
 
@@ -51,21 +51,21 @@ public class SaladAdapter extends RecyclerView.Adapter<SaladAdapter.SaladViewHol
 
     @Override
     public int getItemCount() {
-        return salads.size();
+        return sideDishes.size();
     }
 
-    public void updateSalads(List<Salad> newList) {
+    public void updateSideDishes(List<SideDish> newList) {
         if (newList != null) {
-            this.salads = newList;
+            this.sideDishes = newList;
             notifyDataSetChanged();
         }
     }
 
-    static class SaladViewHolder extends RecyclerView.ViewHolder {
+    static class SideDishViewHolder extends RecyclerView.ViewHolder {
         TextView txtName, txtPrice;
         ImageView imgDish;
 
-        public SaladViewHolder(@NonNull View itemView) {
+        public SideDishViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_name);
             txtPrice = itemView.findViewById(R.id.txt_price);

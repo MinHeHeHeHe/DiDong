@@ -7,7 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".Activity.DetailPizzaActivity"
     android:background="@drawable/container_pizza_detail">
-            <ImageView
+
+    <ImageView
+        android:id="@+id/image_arrow_left"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_arrow_left"
+        app:layout_constraintTop_toTopOf="@id/txt_pizza_name"
+        app:layout_constraintBottom_toBottomOf="@id/txt_pizza_name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="24dp" />
+
+    <ImageView
                 android:id="@+id/image_rectangle"
                 android:layout_width="412dp"
                 android:layout_height="268dp"
@@ -19,10 +31,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-
 
                 <Button
                     android:id="@+id/text_add_to_orders"
@@ -37,8 +45,6 @@
                     app:layout_constraintBottom_toBottomOf="@+id/main"
                     app:layout_constraintStart_toStartOf="@+id/main"
                     app:layout_constraintEnd_toEndOf="@+id/main"/>
-
-
 
 
     <TextView
@@ -158,7 +164,7 @@
             android:id="@+id/image_mushroom"
             android:layout_width="28dp"
             android:layout_height="28dp"
-
+            android:background="@drawable/image_mushroom"
             app:layout_constraintTop_toTopOf="@id/bg1"
             app:layout_constraintBottom_toBottomOf="@id/bg1"
             app:layout_constraintStart_toStartOf="@id/bg1"
@@ -166,7 +172,7 @@
             android:scaleType="centerInside" />
 
         <ImageView
-            android:id="@+id/image_food"
+            android:id="@+id/image_onion"
             android:layout_width="28dp"
             android:layout_height="28dp"
 

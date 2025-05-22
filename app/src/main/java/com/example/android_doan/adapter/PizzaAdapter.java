@@ -1,5 +1,6 @@
 package com.example.android_doan.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.android_doan.Activity.DetailPizzaActivity;
 import com.example.android_doan.R;
 import com.example.android_doan.model.Pizza;
 
@@ -45,6 +47,11 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         } else {
             holder.imgDish.setImageResource(R.drawable.ic_launcher_background);
         }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), DetailPizzaActivity.class);
+            intent.putExtra("pizza", pizza);
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override
