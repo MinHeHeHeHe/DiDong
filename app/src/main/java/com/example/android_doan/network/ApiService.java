@@ -8,11 +8,14 @@ import com.example.android_doan.LoginRequest;
 import com.example.android_doan.LoginResponse;
 import com.example.android_doan.ResetPasswordRequest;
 import com.example.android_doan.ResetPasswordResponse;
-import com.example.android_doan.model.Drink;
+
 import com.example.android_doan.ui.profile.LogoutResponse;
 import com.example.android_doan.RegisterRequest;
 import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.model.Pizza;
+import com.example.android_doan.model.Drink;
+import com.example.android_doan.model.Side;
+import com.example.android_doan.model.Salad;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -35,6 +38,10 @@ public interface ApiService {
 
     @GET("api/drink/getAllDrink")
     Call<List<Drink>> getAllDrinks();
+    @GET("api/side/getAllSide")
+    Call<List<Side>> getAllSides();
+    @GET("api/salad/getAllSalad")
+    Call<List<Salad>> getAllSalads();
 
     @POST("api/pizza/createPizza")
     Call<Pizza> createPizza(@Body Pizza request);

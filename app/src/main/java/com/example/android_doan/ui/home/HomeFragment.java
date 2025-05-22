@@ -7,11 +7,19 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.android_doan.R;
+
+import com.example.android_doan.adapter.SaladAdapter;
+import com.example.android_doan.adapter.SideAdapter;
 import com.example.android_doan.adapter.DrinkAdapter;
 import com.example.android_doan.adapter.PizzaAdapter;
 import com.example.android_doan.databinding.FragmentHomeBinding;
+
+import com.example.android_doan.model.Salad;
+import com.example.android_doan.model.Side;
 import com.example.android_doan.model.Drink;
 import com.example.android_doan.model.Pizza;
+
+
 import com.example.android_doan.network.RetrofitClient;
 
 import androidx.annotation.NonNull;
@@ -32,6 +40,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private PizzaAdapter pizzaAdapter;
     private DrinkAdapter drinkAdapter;
+    private SideAdapter sideAdapter;
+    private SaladAdapter saladAdapter;
     private CardView selectedCard = null;
 
     @Override
@@ -45,6 +55,8 @@ public class HomeFragment extends Fragment {
 
         pizzaAdapter = new PizzaAdapter(new ArrayList<>());
         drinkAdapter = new DrinkAdapter(new ArrayList<>());
+        sideAdapter = new SideAdapter(new ArrayList<>());
+        saladAdapter = new SaladAdapter(new ArrayList<>());
         recyclerView.setAdapter(pizzaAdapter); // mặc định là Pizza
 
         // Gọi API Pizza mặc định
@@ -53,6 +65,8 @@ public class HomeFragment extends Fragment {
         // Thiết lập sự kiện cho từng loại
         setupCategorySelection(binding.btnPizza, binding.cardPizza, "pizza");
         setupCategorySelection(binding.btnDrink, binding.cardDrink, "drink");
+        setupCategorySelection(binding.btnSide, binding.cardSide, "side");
+        setupCategorySelection(binding.btnSalad, binding.cardSalad, "salad");
 
         // Gọi chọn mặc định Pizza
         binding.btnPizza.performClick();
@@ -73,12 +87,26 @@ public class HomeFragment extends Fragment {
                 selectedCard = cardView;
 
                 // Tải dữ liệu tương ứng
-                if ("pizza".equals(type)) {
-                    binding.recyclerList.setAdapter(pizzaAdapter);
-                    fetchPizzas();
-                } else if ("drink".equals(type)) {
-                    binding.recyclerList.setAdapter(drinkAdapter);
-                    fetchDrinks();
+                switch (type) {
+                    case "pizza":
+                        binding.recyclerList.setAdapter(pizzaAdapter);
+                        fetchPizzas();
+                        break;
+                    case "drink":
+                        binding.recyclerList.setAdapter(drinkAdapter);
+                        fetchDrinks();
+                        break;
+                    case "side":
+                        binding.recyclerList.setAdapter(sideAdapter);
+                        fetchSides();
+                        break;
+                    case "salad":
+                        binding.recyclerList.setAdapter(saladAdapter);
+                        fetchSalads();
+                        break;
+                    default:
+                        Toast.makeText(getContext(), "Loại món không xác định!", Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         });
@@ -115,6 +143,43 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Drink>> call, Throwable t) {
+                Toast.makeText(getContext(), "Không thể kết nối máy chủ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void fetchSides() {
+        RetrofitClient.getApiService().getAllSides().enqueue(new Callback<List<Side>>() {
+            @Override
+            public void onResponse(Call<List<Side>> call, Response<List<Side>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    sideAdapter.updateSides(response.body());
+                } else {
+                    Toast.makeText(getContext(), "Lỗi tải món ăn kèm", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Side>> call, Throwable t) {
+                Toast.makeText(getContext(), "Không thể kết nối máy chủ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fetchSalads() {
+        RetrofitClient.getApiService().getAllSalads().enqueue(new Callback<List<Salad>>() {
+            @Override
+            public void onResponse(Call<List<Salad>> call, Response<List<Salad>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    saladAdapter.updateSalads(response.body());
+                } else {
+                    Toast.makeText(getContext(), "Lỗi tải salad", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Salad>> call, Throwable t) {
                 Toast.makeText(getContext(), "Không thể kết nối máy chủ", Toast.LENGTH_SHORT).show();
             }
         });
