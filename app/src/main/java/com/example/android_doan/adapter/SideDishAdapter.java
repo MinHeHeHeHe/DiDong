@@ -30,7 +30,7 @@ public class SideDishAdapter extends RecyclerView.Adapter<SideDishAdapter.SideDi
     @Override
     public SideDishViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home, parent, false);
+                .inflate(R.layout.item_home_pizza, parent, false);
         return new SideDishViewHolder(view);
     }
 

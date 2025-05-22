@@ -30,7 +30,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
     @Override
     public DrinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home, parent, false);
+                .inflate(R.layout.item_home_pizza, parent, false);
         return new DrinkViewHolder(view);
     }
 

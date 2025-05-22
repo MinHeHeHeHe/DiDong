@@ -106,6 +106,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // lay ds pizza
     private void fetchPizzas() {
         RetrofitClient.getApiService().getAllPizzas().enqueue(new Callback<List<Pizza>>() {
             @Override
@@ -123,7 +124,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+    // lay ds drink
     private void fetchDrinks() {
         RetrofitClient.getApiService().getAllDrinks().enqueue(new Callback<List<Drink>>() {
             @Override
@@ -141,7 +142,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+    // lay ds side dish
     private void fetchSideDishes() {
         RetrofitClient.getApiService().getAllSide().enqueue(new Callback<List<SideDish>>() {
             @Override
@@ -159,7 +160,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+    // lay ds salad
     private void fetchSalads() {
         RetrofitClient.getApiService().getAllSalad().enqueue(new Callback<List<Salad>>() {
             @Override

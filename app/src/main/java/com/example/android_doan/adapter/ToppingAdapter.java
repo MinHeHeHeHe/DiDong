@@ -1,4 +1,4 @@
-/*package com.example.android_doan.adapter;
+package com.example.android_doan.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +33,12 @@ public class ToppingAdapter extends RecyclerView.Adapter<ToppingAdapter.ToppingV
     @Override
     public void onBindViewHolder(@NonNull ToppingViewHolder holder, int position) {
         Topping topping = toppings.get(position);
-        holder.name.setText(topping.getName());
-        Glide.with(holder.itemView.getContext()).load(topping.getImage_url()).into(holder.image);
+        Glide.with(holder.itemView.getContext())
+                .load(topping.getImageUrl())
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_foreground) // hiển thị ảnh mặc định nếu load thất bại
+                .into(holder.image);
     }
-
     @Override
     public int getItemCount() {
         return toppings != null ? toppings.size() : 0;
@@ -44,12 +46,10 @@ public class ToppingAdapter extends RecyclerView.Adapter<ToppingAdapter.ToppingV
 
     static class ToppingViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView name;
 
         public ToppingViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image_topping);
-            name = itemView.findViewById(R.id.text_topping_name);
         }
     }
 
@@ -58,4 +58,4 @@ public class ToppingAdapter extends RecyclerView.Adapter<ToppingAdapter.ToppingV
         notifyDataSetChanged();
     }
 }
-*/
+

@@ -30,7 +30,7 @@ public class SaladAdapter extends RecyclerView.Adapter<SaladAdapter.SaladViewHol
     @Override
     public SaladViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home, parent, false);
+                .inflate(R.layout.item_home_pizza, parent, false);
         return new SaladViewHolder(view);
     }
 
