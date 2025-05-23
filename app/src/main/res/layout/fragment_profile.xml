@@ -5,15 +5,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/textProfileTitle">
+    tools:context=".ui.profile.ProfileFragment"
+    android:id="@+id/textProfileTitle">
+
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="917dp"
+            android:layout_height="match_parent"
             android:background="@drawable/container_bars">
 
 
@@ -47,7 +45,6 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
                     android:scaleType="centerCrop" />
 
                 <FrameLayout
@@ -100,12 +97,12 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="546dp"
                 android:layout_gravity="top|left"
-                android:id="@+id/textDangXuat">
+                android:id="@+id/textDangXuat"
+                android:background="@drawable/background_chinh_sua_thong_tin">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
                     android:scaleType="centerCrop" />
 
                 <FrameLayout
@@ -142,12 +139,12 @@
                 android:layout_height="42dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="406dp"
-                android:layout_gravity="top|left">
+                android:layout_gravity="top|left"
+                android:background="@drawable/background_chinh_sua_thong_tin">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
                     android:scaleType="centerCrop" />
 
                 <FrameLayout
@@ -156,7 +153,9 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="6.51dp"
                     android:layout_marginTop="8dp"
-                    android:layout_gravity="top">
+                    android:layout_gravity="top"
+
+                    >
 
                     <ImageView
                         android:layout_width="24dp"
@@ -197,12 +196,12 @@
                 android:layout_height="42dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="336dp"
-                android:layout_gravity="top|left">
+                android:layout_gravity="top|left"
+                android:background="@drawable/background_chinh_sua_thong_tin">
 
                 <ImageView
                     android:layout_width="384dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
                     android:scaleType="centerCrop" />
 
                 <FrameLayout
@@ -264,7 +263,6 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/profile_containers"
                         android:scaleType="centerCrop" />
 
                     <FrameLayout
@@ -312,8 +310,5 @@
                     android:src="@drawable/image_comment" />
             </FrameLayout>
         </FrameLayout>
-
-
-    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
