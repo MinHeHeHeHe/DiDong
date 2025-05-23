@@ -1,4 +1,4 @@
-package com.example.android_doan;
+/*package com.example.android_doan;
 
 import android.os.Bundle;
 
@@ -127,4 +127,4 @@ public class TestActivity extends AppCompatActivity {
         toppingsInput.setText("");
         priceInput.setText("");
     }
-}
+}*/

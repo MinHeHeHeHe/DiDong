@@ -2,6 +2,7 @@ package com.example.android_doan.network;
 
 import java.util.List;
 
+import com.example.android_doan.AddToCartRequest;
 import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
 import com.example.android_doan.LoginRequest;
@@ -17,10 +18,14 @@ import com.example.android_doan.RegisterRequest;
 import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.model.Pizza;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ApiService {
     @POST("api/user/login")
@@ -47,6 +52,15 @@ public interface ApiService {
 
     @GET("/api/topping/getAllTopping")
     Call<List<Topping>> getAllToppings();
+
+    @PUT("api/pizza/updatePizza/{id}")
+    Call<Pizza> updatePizza(@Path("id") String id, @Body Pizza pizza);
+
+    @POST("/api/cart/addToCart")
+    Call<ResponseBody> addToCart(
+            @Header("Authorization") String token,
+            @Body AddToCartRequest request
+    );
 
 
     @POST("api/user/forget-password")
