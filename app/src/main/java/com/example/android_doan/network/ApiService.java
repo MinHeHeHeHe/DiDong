@@ -30,6 +30,9 @@ import retrofit2.http.POST;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiService {
     @POST("api/user/login")
@@ -65,6 +68,7 @@ public interface ApiService {
 
     @PUT("api/pizza/updatePizza/{id}")
     Call<Pizza> updatePizza(@Path("id") String id, @Body Pizza pizza);
+
 
     @POST("/api/cart/addToCart")
     Call<ResponseBody> addToCart(
