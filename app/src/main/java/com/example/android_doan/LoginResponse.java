@@ -2,17 +2,22 @@ package com.example.android_doan;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 public class LoginResponse {
     private String token;
     private User user;
 
-    public static class User {
+    public static class User implements Serializable {
         private String id;
         private String username;
         @SerializedName("image_url")
         private String imageUrl;
+        @SerializedName("date_of_birth")
         private String dob;
+        @SerializedName("phone")
         private String phone;
+        @SerializedName("address")
         private String address;
         private String email;
         private String role;

@@ -72,8 +72,7 @@ public class DangNhapActivity extends AppCompatActivity {
                         String address = response.body().getUser().getAddress();
                         String userId = response.body().getUser().getId();
                         String avatarUrl = response.body().getUser().getImageUrl();
-                        Log.d("DEBUG", "avatarUrl từ SharedPreferences: " + avatarUrl);
-                        Log.d("DEBUG", "Login response: " + new Gson().toJson(response.body()));
+
 
                         // Lưu token vào SharedPreferences ở đây
                         String token = response.body().getToken();
@@ -88,6 +87,7 @@ public class DangNhapActivity extends AppCompatActivity {
                                 .putString("userId", userId)
                                 .apply();
                         Toast.makeText(DangNhapActivity.this, "Chào " + username, Toast.LENGTH_SHORT).show();
+                        Log.d("API_RESPONSE", new Gson().toJson(response.body()));
 
                         Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
                         startActivity(intent);

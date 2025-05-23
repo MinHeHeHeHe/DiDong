@@ -31,6 +31,13 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiService {
+
+    @GET("api/user/getUser/{id}")
+    Call<LoginResponse.User> getUserById(
+            @Header("Authorization") String token,
+            @Path("id") String userId
+    );
+
     @POST("api/user/login")
     Call<LoginResponse> login(@Body LoginRequest request);
 
