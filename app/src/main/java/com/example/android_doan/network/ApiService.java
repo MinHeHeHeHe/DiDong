@@ -59,6 +59,7 @@ public interface ApiService {
     @PUT("api/pizza/updatePizza/{id}")
     Call<Pizza> updatePizza(@Path("id") String id, @Body Pizza pizza);
 
+
     @POST("/api/cart/addToCart")
     Call<ResponseBody> addToCart(
             @Header("Authorization") String token,

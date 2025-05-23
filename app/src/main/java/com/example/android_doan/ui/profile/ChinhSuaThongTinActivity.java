@@ -1,11 +1,12 @@
 package com.example.android_doan.ui.profile;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,16 +15,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.android_doan.R;
-import com.example.android_doan.model.User;
-import com.example.android_doan.network.ApiService;
-import com.example.android_doan.network.RetrofitClient;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ChinhSuaThongTinActivity extends AppCompatActivity {
 
@@ -41,14 +32,32 @@ public class ChinhSuaThongTinActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Khởi tạo view
+        edtUsername = findViewById(R.id.txt_full_name);
+        edtDob = findViewById(R.id.txt_full_birthday);
+        edtPhone = findViewById(R.id.txt_full_phone);
+        edtAddress = findViewById(R.id.txt_full_address);
+        btnThayDoi = findViewById(R.id.btn_change);
 
+        // Lấy dữ liệu từ SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String username = prefs.getString("username", "Người dùng");
+        String dob = prefs.getString("dob", "");
+        String phone = prefs.getString("phone", "");
+        String address = prefs.getString("address", "");
+        Log.d("DEBUG", "dob, phone,addres từ SharedPreferences: " + dob + phone + address);
+        // Hiển thị lên EditText
+        edtUsername.setText(username);
+        edtDob.setText(dob);
+        edtPhone.setText(phone);
+        edtAddress.setText(address);
 
         // Gắn sự kiện cho nút quay lại
         ImageView imgBack = findViewById(R.id.img_chevron_left);
         imgBack.setOnClickListener(v -> {
             finish(); // Quay về fragment trước đó
         });
-        
+
 
     }
 }

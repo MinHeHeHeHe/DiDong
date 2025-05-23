@@ -11,6 +11,9 @@ public class LoginResponse {
         private String username;
         @SerializedName("image_url")
         private String imageUrl;
+        private String dob;
+        private String phone;
+        private String address;
         private String email;
         private String role;
 
@@ -23,6 +26,15 @@ public class LoginResponse {
         }
         public String getImageUrl() {
             return imageUrl;
+        }
+        public String getDob() {
+            return dob;
+        }
+        public String getPhone() {
+            return phone;
+        }
+        public String getAddress() {
+            return address;
         }
 
         public String getEmail() {

@@ -20,12 +20,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import android.content.Intent;
-import android.widget.TextView;
-import android.graphics.Typeface;
-import android.view.MotionEvent;
-import android.widget.EditText;
-
 import com.example.android_doan.LoginRequest;
 import com.example.android_doan.LoginResponse;
 import com.example.android_doan.R;
@@ -73,6 +67,9 @@ public class DangNhapActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         String username = response.body().getUser().getUsername();
+                        String date_of_birth = response.body().getUser().getDob();
+                        String phone = response.body().getUser().getPhone();
+                        String address = response.body().getUser().getAddress();
                         String userId = response.body().getUser().getId();
                         String avatarUrl = response.body().getUser().getImageUrl();
                         Log.d("DEBUG", "avatarUrl từ SharedPreferences: " + avatarUrl);
@@ -84,6 +81,9 @@ public class DangNhapActivity extends AppCompatActivity {
                                 .edit()
                                 .putString("username", username)
                                 .putString("avatarUrl", avatarUrl)
+                                .putString("date_of_birth", date_of_birth)
+                                .putString("phone", phone)
+                                .putString("address", address)
                                 .putString("token", token)
                                 .putString("userId", userId)
                                 .apply();

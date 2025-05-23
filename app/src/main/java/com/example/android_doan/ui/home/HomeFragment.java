@@ -20,7 +20,6 @@ import com.example.android_doan.model.Drink;
 import com.example.android_doan.model.Pizza;
 import com.example.android_doan.model.Salad;
 import com.example.android_doan.model.SideDish;
-import com.example.android_doan.model.User;
 import com.example.android_doan.network.RetrofitClient;
 
 import androidx.annotation.NonNull;
