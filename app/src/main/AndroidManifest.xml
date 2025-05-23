@@ -43,9 +43,10 @@
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false" />
-        <activity
-            android:name=".TestActivity"
-            android:exported="false"></activity>
-    </application>
+        <activity android:name=".Activity.DetailItemActivity"
+            android:exported="false"/>
+        <activity android:name=".Activity.ThemThongTinCaNhanActivity"
+            android:exported="false"/>
 
+    </application>
 </manifest>

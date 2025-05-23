@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/themthongtincanhan"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@drawable/container_bars">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/container_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Thanh tiêu đề -->
+            <FrameLayout
+                android:id="@+id/container_bars"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="91dp"
+                android:layout_gravity="top"
+                android:background="@drawable/container_bars">
+
+                <ImageView
+                    android:id="@+id/image_arrow_left"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/image_arrow_left" />
+
+                <TextView
+                    android:id="@+id/text_register_nav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Thêm thông tin cá nhân"
+                    android:textColor="#FF090A0A"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <!-- Tên người dùng -->
+            <FrameLayout
+                android:id="@+id/container_group2"
+                android:layout_width="327dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginTop="180dp"
+                android:layout_gravity="top|left"
+                android:background="@drawable/container_group1">
+
+                <EditText
+                    android:id="@+id/edt_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_rectangle2"
+                    android:hint="Tên người dùng"
+                    android:textColor="@android:color/black"
+                    android:padding="16dp"
+                    android:inputType="text" />
+            </FrameLayout>
+
+            <!-- Ngày sinh -->
+            <FrameLayout
+                android:id="@+id/container_group3"
+                android:layout_width="327dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginTop="258dp"
+                android:layout_gravity="top|left"
+                android:background="@drawable/container_group1">
+
+                <EditText
+                    android:id="@+id/edt_date_of_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_rectangle2"
+                    android:hint="Ngày sinh (dd-mm-yyyy)"
+                    android:textColor="@android:color/black"
+                    android:padding="16dp"
+                    android:inputType="text" />
+            </FrameLayout>
+
+            <!-- Số điện thoại -->
+            <FrameLayout
+                android:id="@+id/container_group4"
+                android:layout_width="327dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginTop="336dp"
+                android:layout_gravity="top|left"
+                android:background="@drawable/container_group1">
+
+                <EditText
+                    android:id="@+id/edt_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_rectangle2"
+                    android:hint= "Số điện thoại"
+                    android:textColor="@android:color/black"
+                    android:padding="16dp"
+                    android:inputType="text" />
+            </FrameLayout>
+
+            <!-- Địa chỉ -->
+            <FrameLayout
+                android:id="@+id/container_group5"
+                android:layout_width="327dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginTop="414dp"
+                android:layout_gravity="top|left"
+                android:background="@drawable/container_group1">
+
+                <EditText
+                    android:id="@+id/edt_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/image_rectangle2"
+                    android:hint="Địa chỉ"
+                    android:textColor="@android:color/black"
+                    android:padding="16dp"
+                    android:minLines="2"
+                    android:maxLines="4"
+                    android:scrollbars="vertical"
+                    android:gravity="top"
+                    android:inputType="textMultiLine|textPostalAddress" />
+            </FrameLayout>
+
+            <!-- Nút Lưu -->
+            <FrameLayout
+                android:id="@+id/container_group1"
+                android:layout_width="326dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginTop="510dp"
+                android:layout_gravity="top|left"
+                android:background="@drawable/container_group1">
+
+                <Button
+                    android:id="@+id/btn_save_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_rectangle1"
+                    android:text="Lưu thông tin"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </FrameLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+</ScrollView>

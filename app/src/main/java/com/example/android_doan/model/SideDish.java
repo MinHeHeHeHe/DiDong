@@ -2,7 +2,9 @@ package com.example.android_doan.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SideDish {
+import java.io.Serializable;
+
+public class SideDish implements Serializable {
     @SerializedName("_id")
     private String id;
     private String name;

@@ -67,31 +67,37 @@ public class DangNhapActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         String username = response.body().getUser().getUsername();
-                        String date_of_birth = response.body().getUser().getDob();
-                        String phone = response.body().getUser().getPhone();
-                        String address = response.body().getUser().getAddress();
+                        String token = response.body().getToken();
                         String userId = response.body().getUser().getId();
                         String avatarUrl = response.body().getUser().getImageUrl();
+                        String dob = response.body().getUser().getDob();
+                        String phone = response.body().getUser().getPhone();
+                        String address = response.body().getUser().getAddress();
 
-
-                        // Lưu token vào SharedPreferences ở đây
-                        String token = response.body().getToken();
+                        // Lưu token nếu cần
                         getSharedPreferences("MyPrefs", MODE_PRIVATE)
                                 .edit()
                                 .putString("username", username)
                                 .putString("avatarUrl", avatarUrl)
-                                .putString("date_of_birth", date_of_birth)
+                                .putString("date_of_birth", dob)
                                 .putString("phone", phone)
                                 .putString("address", address)
                                 .putString("token", token)
                                 .putString("userId", userId)
                                 .apply();
                         Toast.makeText(DangNhapActivity.this, "Chào " + username, Toast.LENGTH_SHORT).show();
-                        Log.d("API_RESPONSE", new Gson().toJson(response.body()));
 
-                        Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if ("defaultUsername".equals(username)) {
+                            // Username mặc định => qua màn hình bổ sung thông tin
+                            Intent intent = new Intent(DangNhapActivity.this, ThemThongTinCaNhanActivity.class);
+                            intent.putExtra("email", edtEmail.getText().toString().trim());
+                            intent.putExtra("password", edtPassword.getText().toString().trim());
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                        } else {
+                            //  Username đã chỉnh sửa => vào MainActivity (gắn với HomeFragment)
+                            startActivity(new Intent(DangNhapActivity.this, MainActivity.class));
+                        }
                     } else {
                         Toast.makeText(DangNhapActivity.this, "Sai email hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }

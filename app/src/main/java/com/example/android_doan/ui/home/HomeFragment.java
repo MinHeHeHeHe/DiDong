@@ -45,11 +45,12 @@ public class HomeFragment extends Fragment {
     private CardView selectedCard = null;
 
     @Override
-     public View onCreateView(@NonNull LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         // Hiển thị lời chào bằng username từ SharedPreferences
         SharedPreferences prefs = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String username = prefs.getString("username", "Người dùng");
@@ -85,13 +86,7 @@ public class HomeFragment extends Fragment {
         binding.btnPizza.performClick();
 
         return root;
-
     }
-
-
-
-
-
 
     private void setupCategorySelection(View button, CardView cardView, String type) {
         button.setOnClickListener(v -> {
