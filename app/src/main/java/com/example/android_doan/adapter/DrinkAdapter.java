@@ -1,5 +1,6 @@
 package com.example.android_doan.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,30 +8,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.android_doan.Activity.DetailItemActivity;
 import com.example.android_doan.R;
 import com.example.android_doan.model.Drink;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder> {
 
-    private List<Drink> drinks = new ArrayList<>();
+    private List<Drink> drinks;
 
     public DrinkAdapter(List<Drink> drinks) {
-        if (drinks != null) {
-            this.drinks = drinks;
-        }
+        this.drinks = drinks;
     }
 
     @NonNull
     @Override
     public DrinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home_pizza, parent, false);
+                .inflate(R.layout.item_home_pizza, parent, false); // Dùng chung layout
         return new DrinkViewHolder(view);
     }
 
@@ -47,18 +46,22 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         } else {
             holder.imgDish.setImageResource(R.drawable.ic_launcher_background);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), DetailItemActivity.class);
+            intent.putExtra("item", drink);
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return drinks.size();
+        return drinks != null ? drinks.size() : 0;
     }
 
     public void updateDrinks(List<Drink> newDrinks) {
-        if (newDrinks != null) {
-            this.drinks = newDrinks;
-            notifyDataSetChanged();
-        }
+        this.drinks = newDrinks;
+        notifyDataSetChanged();
     }
 
     static class DrinkViewHolder extends RecyclerView.ViewHolder {

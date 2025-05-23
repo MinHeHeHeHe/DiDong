@@ -14,6 +14,17 @@ public class AddToCartRequest {
         this.sides = sides;
         this.salads = salads;
     }
+    public void setDrinks(List<DrinkData> drinks) {
+        this.drinks = drinks;
+    }
+    public void setSides(List<SideData> sides) {
+        this.sides = sides;
+    }
+
+    public void setSalads(List<SaladData> salads) {
+        this.salads = salads;
+    }
+
 
     public static class PizzaData {
         private String pizzaId; // optional
@@ -55,6 +66,7 @@ public class AddToCartRequest {
             this.drinkId = drinkId;
             this.quantity = quantity;
         }
+
     }
 
     public static class SideData {

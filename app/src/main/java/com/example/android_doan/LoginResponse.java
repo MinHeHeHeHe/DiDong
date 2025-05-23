@@ -1,5 +1,7 @@
 package com.example.android_doan;
 
+import com.google.gson.annotations.SerializedName;
+
 public class LoginResponse {
     private String token;
     private User user;
@@ -7,6 +9,14 @@ public class LoginResponse {
     public static class User {
         private String id;
         private String username;
+        @SerializedName("image_url")
+        private String imageUrl;
+        @SerializedName("date_of_birth")
+        private String dob;
+        @SerializedName("phone")
+        private String phone;
+        @SerializedName("address")
+        private String address;
         private String email;
         private String role;
 
@@ -16,6 +26,18 @@ public class LoginResponse {
 
         public String getUsername() {
             return username;
+        }
+        public String getImageUrl() {
+            return imageUrl;
+        }
+        public String getDob() {
+            return dob;
+        }
+        public String getPhone() {
+            return phone;
+        }
+        public String getAddress() {
+            return address;
         }
 
         public String getEmail() {

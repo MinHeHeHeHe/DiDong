@@ -35,6 +35,12 @@ public interface ApiService {
     @POST("api/user/login")
     Call<LoginResponse> login(@Body LoginRequest request);
 
+    @GET("api/user/getUser/{id}")
+    Call<LoginResponse.User> getUserById(
+            @Header("Authorization") String token,
+            @Path("id") String userId
+    );
+
     @POST("api/user/createUser")
     Call<RegisterResponse> register(@Body RegisterRequest request);
 
@@ -66,6 +72,13 @@ public interface ApiService {
             @Body AddToCartRequest request
     );
 
+    // cho user khi thêm thông tin cá nhân
+    @PUT("api/user/updateUser/{id}")
+    Call<ThemThongTinCaNhanResponse> updateUser(
+            @Header("Authorization") String token,
+            @Path("id") String userId,
+            @Body ThemThongTinCaNhanRequest request
+    );
 
     @POST("api/user/forget-password")
     Call<ForgotPasswordResponse> forgotPassword(@Body ForgotPasswordRequest request);

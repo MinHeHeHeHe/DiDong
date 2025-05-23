@@ -15,6 +15,7 @@ import com.example.android_doan.ThemThongTinCaNhanRequest;
 import com.example.android_doan.ThemThongTinCaNhanResponse;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
+import com.example.android_doan.Activity.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,8 +58,8 @@ public class ThemThongTinCaNhanActivity extends AppCompatActivity {
             ThemThongTinCaNhanRequest request = new ThemThongTinCaNhanRequest(
                     username, dateOfBirth, address, phone, "user");
 
-            // Lấy token từ SharedPreferences
-            String token = getSharedPreferences("MyPrefs", MODE_PRIVATE).getString("token", "");
+            SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            String token = prefs.getString("token", "");
 
             ApiService apiService = RetrofitClient.getApiService();
             apiService.updateUser("Bearer " + token, userId, request)
@@ -66,6 +67,12 @@ public class ThemThongTinCaNhanActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ThemThongTinCaNhanResponse> call, Response<ThemThongTinCaNhanResponse> response) {
                             if (response.isSuccessful()) {
+                                // ✅ Lưu lại userId và token sau khi cập nhật thành công
+                                SharedPreferences.Editor editor = getSharedPreferences("MyPrefs", MODE_PRIVATE).edit();
+                                editor.putString("userId", userId); // Ghi đè để đảm bảo chính xác
+                                editor.putString("token", token);
+                                editor.apply();
+
                                 Toast.makeText(ThemThongTinCaNhanActivity.this, "Thêm thông tin thành công", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(ThemThongTinCaNhanActivity.this, MainActivity.class));
                                 finish();
@@ -85,7 +92,7 @@ public class ThemThongTinCaNhanActivity extends AppCompatActivity {
         ImageView imgBack = findViewById(R.id.image_arrow_left);
         imgBack.setOnClickListener(v -> {
             Intent intent_back = new Intent(ThemThongTinCaNhanActivity.this, DangNhapActivity.class);
-            intent_back.putExtra("email", email);  // Truyền lại email
+            intent_back.putExtra("email", email);
             startActivity(intent_back);
             finish();
         });

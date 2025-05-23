@@ -1,11 +1,15 @@
 package com.example.android_doan.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.android_doan.R;
 import com.example.android_doan.adapter.DrinkAdapter;
 import com.example.android_doan.adapter.PizzaAdapter;
@@ -47,6 +51,19 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Hiển thị lời chào bằng username từ SharedPreferences
+        SharedPreferences prefs = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String username = prefs.getString("username", "Người dùng");
+        binding.tvWelcome.setText("Chào mừng quay lại, " + username);
+
+        String avatarUrl = prefs.getString("avatarUrl", null);
+        Log.d("DEBUG", "avatarUrl từ SharedPreferences: " + avatarUrl);
+
+        if (avatarUrl != null && !avatarUrl.isEmpty()) {
+            Glide.with(this).load(avatarUrl).into(binding.imgAvatar);
+        } else {
+            Glide.with(this).load(R.drawable.ic_profile).into(binding.imgAvatar);
+        }
         // RecyclerView setup
         RecyclerView recyclerView = binding.recyclerList;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
