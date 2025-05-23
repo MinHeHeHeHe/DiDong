@@ -45,11 +45,7 @@ public interface ApiService {
     @POST("api/user/login")
     Call<LoginResponse> login(@Body LoginRequest request);
 
-    @GET("api/user/getUser/{id}")
-    Call<LoginResponse.User> getUserById(
-            @Header("Authorization") String token,
-            @Path("id") String userId
-    );
+
 
     @POST("api/user/createUser")
     Call<RegisterResponse> register(@Body RegisterRequest request);

@@ -18,4 +18,12 @@ public class ThemThongTinCaNhanRequest {
         this.role = role;
     }
 
+    public ThemThongTinCaNhanRequest(String username, String date_of_birth, String address, String phone) {
+        this.username = username;
+        this.dateOfBirth = date_of_birth;
+        this.address = address;
+        this.phone = phone;
+
+    }
+
 }

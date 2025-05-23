@@ -7,19 +7,11 @@ public class ThemThongTinCaNhanResponse {
     @SerializedName("success")
     private boolean success;
 
-    @SerializedName("message")
-    private String message;
-
-    // Có thể thêm nếu muốn lấy user trả về từ server
     @SerializedName("user")
     private User user;
 
     public boolean isSuccess() {
         return success;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public User getUser() {
