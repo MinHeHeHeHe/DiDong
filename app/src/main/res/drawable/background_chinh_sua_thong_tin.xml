@@ -4,15 +4,15 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <solid android:color="#FFCCBC" /> <!-- màu đậm hơn khi bấm -->
-            <corners android:radius="12dp" />
+            <corners android:radius="30dp" />
         </shape>
     </item>
 
     <!-- Bình thường -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#FFECE6" /> <!-- màu mặc định -->
-            <corners android:radius="12dp" />
+            <solid android:color="#42F66141" /> <!-- màu mặc định -->
+            <corners android:radius="30dp" />
         </shape>
     </item>
 </selector>
