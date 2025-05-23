@@ -12,15 +12,22 @@ import com.example.android_doan.model.Drink;
 import com.example.android_doan.model.Salad;
 import com.example.android_doan.model.SideDish;
 import com.example.android_doan.model.Topping;
+import com.example.android_doan.model.User;
 import com.example.android_doan.ui.profile.LogoutResponse;
 import com.example.android_doan.RegisterRequest;
 import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.model.Pizza;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiService {
     @POST("api/user/login")
@@ -28,6 +35,8 @@ public interface ApiService {
 
     @POST("api/user/createUser")
     Call<RegisterResponse> register(@Body RegisterRequest request);
+
+
 
     @POST("api/user/logout")
     Call<LogoutResponse> logout();

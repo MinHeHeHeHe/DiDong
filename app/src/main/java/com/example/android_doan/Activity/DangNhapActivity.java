@@ -3,6 +3,7 @@ package com.example.android_doan.Activity;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.example.android_doan.LoginResponse;
 import com.example.android_doan.R;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,11 +63,19 @@ public class DangNhapActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         String username = response.body().getUser().getUsername();
+                        String userId = response.body().getUser().getId();
+                        String avatarUrl = response.body().getUser().getImageUrl();
+                        Log.d("DEBUG", "avatarUrl từ SharedPreferences: " + avatarUrl);
+                        Log.d("DEBUG", "Login response: " + new Gson().toJson(response.body()));
+
                         // Lưu token vào SharedPreferences ở đây
                         String token = response.body().getToken();
                         getSharedPreferences("MyPrefs", MODE_PRIVATE)
                                 .edit()
+                                .putString("username", username)
+                                .putString("avatarUrl", avatarUrl)
                                 .putString("token", token)
+                                .putString("userId", userId)
                                 .apply();
                         Toast.makeText(DangNhapActivity.this, "Chào " + username, Toast.LENGTH_SHORT).show();
 
