@@ -16,6 +16,11 @@ public class Topping implements Serializable {
     @SerializedName("image_url")
     private String imageUrl;
 
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
     // Getters
     public String getId() { return id; }
     public String getName() { return name; }
@@ -28,4 +33,7 @@ public class Topping implements Serializable {
     public void setDescription(String description) { this.description = description; }
     public void setBasePrice(double basePrice) { this.basePrice = basePrice; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }

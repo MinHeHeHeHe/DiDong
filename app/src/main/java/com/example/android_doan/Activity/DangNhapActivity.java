@@ -1,11 +1,17 @@
 package com.example.android_doan.Activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 
@@ -33,7 +39,8 @@ import retrofit2.Response;
 
 public class DangNhapActivity extends AppCompatActivity {
     private EditText edtEmail, edtPassword;
-    private Button btnDangNhap;
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,9 @@ public class DangNhapActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.txtEmail);
         edtPassword = findViewById(R.id.txtMatKhau);
         Button btnDangNhap = findViewById(R.id.button_rectangle);
+
+        prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
         btnDangNhap.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
