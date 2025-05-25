@@ -43,15 +43,6 @@ public class Cart {
         private CustomPizza customPizza;
         private int quantity;
 
-        private int index;
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
 
         public Pizza getPizzaId() {
             return pizzaId;
@@ -75,16 +66,6 @@ public class Cart {
         private Drink drinkId;
         private int quantity;
 
-        private int index;
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
         public Drink getDrinkId() {
             return drinkId;
         }
@@ -102,16 +83,6 @@ public class Cart {
         private SideDish sideId;
         private int quantity;
 
-        private int index;
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
         public SideDish getSideId() {
             return sideId;
         }
@@ -128,16 +99,6 @@ public class Cart {
     public static class CartSalad {
         private Salad saladId;
         private int quantity;
-
-        private int index;
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
 
         public Salad getSaladId() {
             return saladId;

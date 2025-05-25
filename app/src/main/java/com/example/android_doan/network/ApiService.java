@@ -1,7 +1,6 @@
 package com.example.android_doan.network;
 
 import java.util.List;
-import java.util.Map;
 
 import com.example.android_doan.AddToCartRequest;
 import com.example.android_doan.ForgotPasswordRequest;
@@ -26,11 +25,12 @@ import com.example.android_doan.RegisterRequest;
 import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.model.Pizza;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
@@ -40,14 +40,17 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    @POST("api/user/login")
-    Call<LoginResponse> login(@Body LoginRequest request);
 
     @GET("api/user/getUser/{id}")
     Call<LoginResponse.User> getUserById(
             @Header("Authorization") String token,
             @Path("id") String userId
     );
+
+    @POST("api/user/login")
+    Call<LoginResponse> login(@Body LoginRequest request);
+
+
 
     @POST("api/user/createUser")
     Call<RegisterResponse> register(@Body RegisterRequest request);
@@ -85,9 +88,6 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Body UpdateCartRequest request
     );
-    @POST("/api/cart/deleteCartItem")
-    Call<UpdateCartResponse> deleteCartItem(@Header("Authorization") String token, @Body Map<String, Object> body);
-
 
     @GET("/api/cart/getCart")
     Call<Cart> getCart(@Header("Authorization") String token);
@@ -98,6 +98,14 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Path("id") String userId,
             @Body ThemThongTinCaNhanRequest request
+    );
+
+    @Multipart
+    @PUT("api/user/updateUser/{id}")
+    Call<ThemThongTinCaNhanResponse> updateUserAvatar(
+            @Header("Authorization") String token,
+            @Path("id") String userId,
+            @Part MultipartBody.Part image
     );
 
     @POST("api/user/forget-password")
