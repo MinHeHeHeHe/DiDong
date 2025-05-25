@@ -25,10 +25,12 @@ import com.example.android_doan.RegisterRequest;
 import com.example.android_doan.RegisterResponse;
 import com.example.android_doan.model.Pizza;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
@@ -96,6 +98,14 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Path("id") String userId,
             @Body ThemThongTinCaNhanRequest request
+    );
+
+    @Multipart
+    @PUT("api/user/updateUser/{id}")
+    Call<ThemThongTinCaNhanResponse> updateUserAvatar(
+            @Header("Authorization") String token,
+            @Path("id") String userId,
+            @Part MultipartBody.Part image
     );
 
     @POST("api/user/forget-password")

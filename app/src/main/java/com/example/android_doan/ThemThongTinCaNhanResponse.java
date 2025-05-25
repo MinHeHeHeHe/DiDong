@@ -28,6 +28,9 @@ public class ThemThongTinCaNhanResponse {
         private String dateOfBirth;
         private String phone;
         private String role;
+        @SerializedName("image_url")
+        private String imageUrl;
+
 
         public String getId() { return id; }
         public String getUsername() { return username; }
@@ -36,5 +39,7 @@ public class ThemThongTinCaNhanResponse {
         public String getDateOfBirth() { return dateOfBirth; }
         public String getPhone() { return phone; }
         public String getRole() { return role; }
+        public String getImageUrl() { return imageUrl; }
+
     }
 }

@@ -23,6 +23,7 @@
             android:scaleType="centerInside" />
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginLeft="130dp"

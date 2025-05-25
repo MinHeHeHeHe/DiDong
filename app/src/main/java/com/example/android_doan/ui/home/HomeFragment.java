@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.android_doan.LoginResponse;
 import com.example.android_doan.R;
 import com.example.android_doan.adapter.DrinkAdapter;
 import com.example.android_doan.adapter.PizzaAdapter;
@@ -53,16 +54,41 @@ public class HomeFragment extends Fragment {
 
         // Hiển thị lời chào bằng username từ SharedPreferences
         SharedPreferences prefs = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String username = prefs.getString("username", "Người dùng");
-        binding.tvWelcome.setText("Chào mừng quay lại, " + username);
+        String token = prefs.getString("token", null);
+        String userId = prefs.getString("userId", null);
+
+
 
         String avatarUrl = prefs.getString("avatarUrl", null);
         Log.d("DEBUG", "avatarUrl từ SharedPreferences: " + avatarUrl);
 
-        if (avatarUrl != null && !avatarUrl.isEmpty()) {
-            Glide.with(this).load(avatarUrl).into(binding.imgAvatar);
+        if (token != null && userId != null) {
+            RetrofitClient.getApiService().getUserById("Bearer " + token, userId)
+                    .enqueue(new Callback<LoginResponse.User>() {
+                        @Override
+                        public void onResponse(Call<LoginResponse.User> call, Response<LoginResponse.User> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                LoginResponse.User user = response.body();
+                                binding.tvWelcome.setText("Chào mừng quay lại, " + user.getUsername());
+
+                                String avatarUrl = user.getImageUrl();
+                                if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                                    Glide.with(HomeFragment.this).load(avatarUrl).into(binding.imgAvatar);
+                                } else {
+                                    Glide.with(HomeFragment.this).load(R.drawable.ic_profile).into(binding.imgAvatar);
+                                }
+                            } else {
+                                Log.e("API_ERROR", "Không lấy được thông tin user");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<LoginResponse.User> call, Throwable t) {
+                            Log.e("API_FAIL", "Lỗi kết nối đến server: " + t.getMessage());
+                        }
+                    });
         } else {
-            Glide.with(this).load(R.drawable.ic_profile).into(binding.imgAvatar);
+            Log.e("TOKEN_ERROR", "Token hoặc User ID null");
         }
         // RecyclerView setup
         RecyclerView recyclerView = binding.recyclerList;
