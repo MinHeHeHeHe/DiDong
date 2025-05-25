@@ -32,11 +32,7 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         });
 
-        //Sự kiện nhấn chỉnh góp ý
-        binding.textGopY.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), GopYActivity.class);
-            startActivity(intent);
-        });
+
 
         // Sự kiện nhấn đăng xuất
         binding.textDangXuat.setOnClickListener(v -> {

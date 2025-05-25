@@ -99,7 +99,16 @@ public class DetailItemActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(DetailItemActivity.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+                        String itemName = "";
+                        if (drink != null) {
+                            itemName = drink.getName();
+                        } else if (sideDish != null) {
+                            itemName = sideDish.getName();
+                        } else if (salad != null) {
+                            itemName = salad.getName();
+                        }
+                        Toast.makeText(DetailItemActivity.this, "Đã thêm \"" + itemName + "\" vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+
                     } else {
                         Toast.makeText(DetailItemActivity.this, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
                         Log.e("ADD_TO_CART_FAIL", "Code: " + response.code());

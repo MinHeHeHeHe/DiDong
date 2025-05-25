@@ -140,7 +140,7 @@ public class DetailPizzaActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
-                        String message = "✔ Pizza \"" + pizza.getName() + "\" đã được thêm vào giỏ hàng!\n"
+                        String message = "Pizza \"" + pizza.getName() + "\" đã được thêm vào giỏ hàng!\n"
                                 + "Kích cỡ: " + selectedSize
                                 + ", Đế: " + selectedCrust
                                 + ", Topping: " + selectedToppings.size() + " món";
