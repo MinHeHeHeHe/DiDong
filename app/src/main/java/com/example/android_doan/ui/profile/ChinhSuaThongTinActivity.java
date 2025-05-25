@@ -17,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.android_doan.LoginResponse;
 import com.example.android_doan.R;
+import com.example.android_doan.ThemThongTinCaNhanRequest;
+import com.example.android_doan.ThemThongTinCaNhanResponse;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
 
@@ -27,6 +29,7 @@ import retrofit2.Response;
 public class ChinhSuaThongTinActivity extends AppCompatActivity {
 
     EditText edtUsername, edtDob, edtPhone, edtAddress;
+    String userRole = "";
     Button btnThayDoi;
 
     @Override
@@ -65,6 +68,7 @@ public class ChinhSuaThongTinActivity extends AppCompatActivity {
                     edtDob.setText(user.getDob());
                     edtPhone.setText(user.getPhone());
                     edtAddress.setText(user.getAddress());
+
                 } else {
                     Log.e("API_ERROR", "Code: " + response.code() + ", Message: " + response.message());
                     Toast.makeText(getApplicationContext(), "Không tải được thông tin", Toast.LENGTH_SHORT).show();
@@ -77,7 +81,37 @@ public class ChinhSuaThongTinActivity extends AppCompatActivity {
             }
         });
 
+        // Sự kiện nút cập nhật thông tin
+        btnThayDoi.setOnClickListener(v -> {
+            String newUsername = edtUsername.getText().toString().trim();
+            String newDob = edtDob.getText().toString().trim();
+            String newPhone = edtPhone.getText().toString().trim();
+            String newAddress = edtAddress.getText().toString().trim();
 
+
+            ThemThongTinCaNhanRequest request = new ThemThongTinCaNhanRequest(newUsername, newDob, newPhone, newAddress);
+
+            Call<ThemThongTinCaNhanResponse> updateCall = apiService.updateUser("Bearer " + token, userId, request);
+            updateCall.enqueue(new Callback<ThemThongTinCaNhanResponse>() {
+                @Override
+                public void onResponse(Call<ThemThongTinCaNhanResponse> call, Response<ThemThongTinCaNhanResponse> response) {
+                    if (response.isSuccessful()) {
+                        if (!response.body().isSuccess()) {
+                            Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Cập nhật thất bại", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Cập nhật thất bại (HTTP " + response.code() + ")", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ThemThongTinCaNhanResponse> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Lỗi kết nối khi cập nhật", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
 
         // Gắn sự kiện cho nút quay lại
         ImageView imgBack = findViewById(R.id.img_chevron_left);

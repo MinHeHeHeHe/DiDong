@@ -1,5 +1,7 @@
 package com.example.android_doan.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Cart {
@@ -34,10 +36,13 @@ public class Cart {
         return total_price;
     }
 
+    // === Inner classes ===
+
     public static class CartPizza {
         private Pizza pizzaId;
         private CustomPizza customPizza;
         private int quantity;
+
 
         public Pizza getPizzaId() {
             return pizzaId;
@@ -47,8 +52,13 @@ public class Cart {
             return customPizza;
         }
 
+
         public int getQuantity() {
             return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
         }
     }
 
@@ -63,6 +73,10 @@ public class Cart {
         public int getQuantity() {
             return quantity;
         }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
     }
 
     public static class CartSide {
@@ -75,6 +89,10 @@ public class Cart {
 
         public int getQuantity() {
             return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
         }
     }
 
@@ -89,15 +107,27 @@ public class Cart {
         public int getQuantity() {
             return quantity;
         }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
     }
 
     public static class CustomPizza {
+
+        @SerializedName("pizzaId")
+        private String customPizzaId;
         private String name;
         private String description;
         private String size;
         private String crust_type;
-        private List<String> toppings;
+        private List<Topping> toppings;
         private double base_price;
+        private String imageUrl;
+
+        public String getCustomPizzaId() {
+            return customPizzaId;
+        }
 
         public String getName() {
             return name;
@@ -115,12 +145,15 @@ public class Cart {
             return crust_type;
         }
 
-        public List<String> getToppings() {
+        public List<Topping> getToppings() {
             return toppings;
         }
 
         public double getBase_price() {
             return base_price;
+        }
+        public String getImageUrl() {
+            return imageUrl;
         }
     }
 }

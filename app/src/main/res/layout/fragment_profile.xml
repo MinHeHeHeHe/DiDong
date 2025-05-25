@@ -5,314 +5,190 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.profile.ProfileFragment"
+    android:id="@+id/textProfileTitle">
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/textProfileTitle">
+        android:background="@drawable/container_bars">
+
+
+        <ImageView
+            android:layout_width="412dp"
+            android:layout_height="146dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/image_rectangle1"
+            android:scaleType="centerInside" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="79dp"
+            android:layout_gravity="top|left"
+
+            android:src="@drawable/image_rectangle2"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CircleImage"/>
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="917dp"
-            android:background="@drawable/container_bars">
-
+            android:layout_width="384dp"
+            android:layout_height="46dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="262dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/background_chinh_sua_thong_tin"
+            android:id="@+id/textChinhSuaThongTin">
 
             <ImageView
-                android:layout_width="412dp"
-                android:layout_height="146dp"
-                android:layout_gravity="top|left"
-                android:background="@drawable/image_rectangle1"
-                android:scaleType="centerInside" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="79dp"
-                android:layout_gravity="top|left"
-
-                android:src="@drawable/image_rectangle2"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CircleImage"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
             <FrameLayout
-                android:layout_width="384dp"
-                android:layout_height="46dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="262dp"
-                android:layout_gravity="top|left"
-                android:background="@drawable/background_chinh_sua_thong_tin"
-                android:id="@+id/textChinhSuaThongTin">
+                android:layout_marginRight="6.51dp"
+                android:layout_marginTop="13.14dp"
+                android:layout_marginBottom="11.44dp">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
-                    android:scaleType="centerCrop" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="6.51dp"
-                    android:layout_marginTop="13.14dp"
-                    android:layout_marginBottom="11.44dp">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="20.93dp"
-                        android:layout_gravity="left"
-                        android:layout_marginTop="0.49dp"
-                        android:layout_marginBottom="0dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/image_pen" />
-
-                    <TextView
-                        android:layout_width="172dp"
-                        android:layout_height="21dp"
-                        android:layout_marginLeft="31dp"
-                        android:layout_marginTop="-2.83dp"
-                        android:layout_marginBottom="-2.83dp"
-                        android:layout_gravity="top|left"
-                        android:gravity="left|center_vertical"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=" Chỉnh sửa thông tin"
-                        android:textColor="#FF000000"
-                        android:textSize="16dp" />
-
-                    <ImageView
-                        android:layout_width="9.49dp"
-                        android:layout_height="18.46dp"
-                        android:layout_marginLeft="353dp"
-                        android:layout_marginTop="1.1dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_gravity="top"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/image_arrow_right" />
-                </FrameLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="384dp"
-                android:layout_height="42dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="546dp"
-                android:layout_gravity="top|left"
-                android:id="@+id/textDangXuat">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
-                    android:scaleType="centerCrop" />
-
-                <FrameLayout
-                    android:layout_width="116dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginBottom="9dp"
-                    android:layout_gravity="left">
-
-                    <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="top|left"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/image_dang_xuat" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="36dp"
-                        android:gravity="left|center_vertical"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text="Đăng xuất"
-                        android:textColor="#FF000000"
-                        android:textSize="16dp" />
-                </FrameLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="385dp"
-                android:layout_height="42dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="406dp"
-                android:layout_gravity="top|left">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
-                    android:scaleType="centerCrop" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="6.51dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_gravity="top">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="left"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/image_favorite_dish" />
-
-                    <TextView
-                        android:layout_width="107dp"
-                        android:layout_height="21dp"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginTop="1.5dp"
-                        android:layout_marginBottom="1.5dp"
-                        android:layout_gravity="left"
-                        android:gravity="left|center_vertical"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=" Món yêu thích"
-                        android:textColor="#FF000000"
-                        android:textSize="16dp" />
-
-                    <ImageView
-                        android:layout_width="9.49dp"
-                        android:layout_height="16.86dp"
-                        android:layout_marginLeft="357dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_gravity="top"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/image_arrow_right" />
-                </FrameLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="385dp"
-                android:layout_height="42dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="336dp"
-                android:layout_gravity="top|left">
-
-                <ImageView
-                    android:layout_width="384dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/profile_containers"
-                    android:scaleType="centerCrop" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="6.51dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="7dp">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="21dp"
-                        android:layout_gravity="top|left"
-                        android:layout_marginLeft="1dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/image_order" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="36dp"
-                        android:layout_gravity="top|left"
-                        android:gravity="left|center_vertical"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text="Lịch sử đơn hàng"
-                        android:textColor="#FF000000"
-                        android:textSize="16dp" />
-
-                    <ImageView
-                        android:layout_width="9.49dp"
-                        android:layout_height="16.86dp"
-                        android:layout_marginLeft="354dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_gravity="top"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/image_arrow_right" />
-
-
-                </FrameLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="385dp"
-                android:layout_height="42dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="476dp"
-                android:layout_gravity="top|left">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/textGopY"
-                    android:background="@drawable/background_chinh_sua_thong_tin">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/profile_containers"
-                        android:scaleType="centerCrop" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="52dp"
-                        android:layout_marginRight="6.51dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="top">
-
-                        <TextView
-                            android:layout_width="107dp"
-                            android:layout_height="21dp"
-                            android:layout_marginTop="-0.5dp"
-                            android:layout_marginBottom="-0.5dp"
-                            android:layout_gravity="left"
-                            android:gravity="left|center_vertical"
-                            android:includeFontPadding="false"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:text="Góp ý"
-                            android:textColor="#FF000000"
-                            android:textSize="16dp" />
-
-                        <ImageView
-                            android:layout_width="9.49dp"
-                            android:layout_height="16.86dp"
-                            android:layout_marginLeft="317dp"
-                            android:layout_marginTop="1dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_gravity="top"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/image_arrow_right" />
-                    </FrameLayout>
-                </FrameLayout>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_width="18dp"
+                    android:layout_height="20.93dp"
                     android:layout_gravity="left"
+                    android:layout_marginTop="0.49dp"
+                    android:layout_marginBottom="0dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/image_comment" />
+                    android:src="@drawable/image_pen" />
+
+                <TextView
+                    android:layout_width="172dp"
+                    android:layout_height="21dp"
+                    android:layout_marginLeft="31dp"
+                    android:layout_marginTop="-2.83dp"
+                    android:layout_marginBottom="-2.83dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text=" Chỉnh sửa thông tin"
+                    android:textColor="#FF000000"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:layout_width="9.49dp"
+                    android:layout_height="18.46dp"
+                    android:layout_marginLeft="353dp"
+                    android:layout_marginTop="1.1dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="top"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/image_arrow_right" />
             </FrameLayout>
         </FrameLayout>
 
+        <FrameLayout
+            android:layout_width="384dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="405dp"
+            android:layout_gravity="top|left"
+            android:id="@+id/textDangXuat"
+            android:background="@drawable/background_chinh_sua_thong_tin">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <FrameLayout
+                android:layout_width="116dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:layout_gravity="left">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="top|left"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/image_dang_xuat" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="36dp"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Đăng xuất"
+                    android:textColor="#FF000000"
+                    android:textSize="16dp" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="385dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="336dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/background_chinh_sua_thong_tin">
+
+            <ImageView
+                android:layout_width="384dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="6.51dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="7dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="21dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="1dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/image_order" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="36dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Lịch sử đơn hàng"
+                    android:textColor="#FF000000"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:layout_width="9.49dp"
+                    android:layout_height="16.86dp"
+                    android:layout_marginLeft="354dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="top"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/image_arrow_right" />
+
+
+            </FrameLayout>
+        </FrameLayout>
 
     </FrameLayout>
 

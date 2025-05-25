@@ -25,7 +25,7 @@ public class ThemThongTinCaNhanActivity extends AppCompatActivity {
 
     private EditText edtUsername, edtAddress, edtDateOfBirth, edtPhone;
     private Button btnLuu;
-    private String userId, email, password, rePassword;
+    private String userId, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,6 @@ public class ThemThongTinCaNhanActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
         email = intent.getStringExtra("email");
-        password = intent.getStringExtra("password");
-        rePassword = intent.getStringExtra("rePassword");
 
         btnLuu.setOnClickListener(v -> {
             String username = edtUsername.getText().toString().trim();
@@ -67,7 +65,7 @@ public class ThemThongTinCaNhanActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ThemThongTinCaNhanResponse> call, Response<ThemThongTinCaNhanResponse> response) {
                             if (response.isSuccessful()) {
-                                // ✅ Lưu lại userId và token sau khi cập nhật thành công
+                                // Lưu lại userId và token sau khi cập nhật thành công
                                 SharedPreferences.Editor editor = getSharedPreferences("MyPrefs", MODE_PRIVATE).edit();
                                 editor.putString("userId", userId); // Ghi đè để đảm bảo chính xác
                                 editor.putString("token", token);

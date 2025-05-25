@@ -9,6 +9,9 @@ import com.example.android_doan.LoginRequest;
 import com.example.android_doan.LoginResponse;
 import com.example.android_doan.ResetPasswordRequest;
 import com.example.android_doan.ResetPasswordResponse;
+import com.example.android_doan.UpdateCartRequest;
+import com.example.android_doan.UpdateCartResponse;
+import com.example.android_doan.model.Cart;
 import com.example.android_doan.model.Drink;
 import com.example.android_doan.model.Salad;
 import com.example.android_doan.model.SideDish;
@@ -75,6 +78,14 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Body AddToCartRequest request
     );
+    @POST("/api/cart/updateCartItemQuantity")
+    Call<UpdateCartResponse> updateCartItemQuantity(
+            @Header("Authorization") String token,
+            @Body UpdateCartRequest request
+    );
+
+    @GET("/api/cart/getCart")
+    Call<Cart> getCart(@Header("Authorization") String token);
 
     // cho user khi thêm thông tin cá nhân
     @PUT("api/user/updateUser/{id}")

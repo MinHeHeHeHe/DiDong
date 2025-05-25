@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.android_doan.databinding.FragmentOrdersBinding;
-import com.example.android_doan.ui.orders.OrdersViewModel;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class OrdersFragment extends Fragment {
 
@@ -22,27 +20,32 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        OrdersViewModel ordersViewModel =
-                new ViewModelProvider(this).get(OrdersViewModel.class);
 
         binding = FragmentOrdersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Làm mờ layout nếu cần
-        final ConstraintLayout layout = binding.textOrders;
-        ordersViewModel.getText().observe(getViewLifecycleOwner(), text -> {
-            layout.setAlpha(0.5f);
-        });
+        // Cài adapter cho ViewPager2
+        OrderPagerAdapter adapter = new OrderPagerAdapter(this); // sử dụng FragmentStateAdapter
+        binding.viewPager.setAdapter(adapter);
 
-        //  Thêm các tab vào TabLayout
-
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Danh sách"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Thanh toán"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Theo dõi"));
+        // Kết nối TabLayout với ViewPager2
+        new TabLayoutMediator(binding.tabLayout, binding.viewPager,
+                (TabLayout.Tab tab, int position) -> {
+                    switch (position) {
+                        case 0:
+                            tab.setText("Giỏ hàng");
+                            break;
+                        case 1:
+                            tab.setText("Thanh toán");
+                            break;
+                        case 2:
+                            tab.setText("Theo dõi");
+                            break;
+                    }
+                }).attach();
 
         return root;
     }
-
 
     @Override
     public void onDestroyView() {
