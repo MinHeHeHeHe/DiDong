@@ -1,6 +1,7 @@
 package com.example.android_doan.network;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.android_doan.AddToCartRequest;
 import com.example.android_doan.ForgotPasswordRequest;
@@ -28,6 +29,7 @@ import com.example.android_doan.model.Pizza;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
@@ -83,6 +85,9 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Body UpdateCartRequest request
     );
+    @POST("/api/cart/deleteCartItem")
+    Call<UpdateCartResponse> deleteCartItem(@Header("Authorization") String token, @Body Map<String, Object> body);
+
 
     @GET("/api/cart/getCart")
     Call<Cart> getCart(@Header("Authorization") String token);

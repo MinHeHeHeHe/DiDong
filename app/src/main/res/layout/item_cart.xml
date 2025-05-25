@@ -54,6 +54,7 @@
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/btn_remove"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/black_circle"
