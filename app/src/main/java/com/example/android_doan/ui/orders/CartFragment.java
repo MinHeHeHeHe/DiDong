@@ -18,15 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android_doan.R;
 import com.example.android_doan.adapter.CartMultiAdapter;
 import com.example.android_doan.model.Cart;
-import com.example.android_doan.model.Topping;
+import com.example.android_doan.model.CartDisplayItem;
+import com.example.android_doan.model.CartDisplayItem.Type;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,22 +50,36 @@ public class CartFragment extends Fragment {
         }
         Log.d("DEBUG_TOKEN", "Token: " + token);
 
-
-        // Gọi API getCart
         ApiService apiService = RetrofitClient.getApiService();
         apiService.getCart("Bearer " + token).enqueue(new Callback<Cart>() {
             @Override
             public void onResponse(Call<Cart> call, Response<Cart> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Cart cart = response.body();
-                    List<Object> allItems = new ArrayList<>();
-                    allItems.addAll(cart.getPizzas());
-                    allItems.addAll(cart.getDrinks());
-                    allItems.addAll(cart.getSides());
-                    allItems.addAll(cart.getSalads());
-                    recyclerView.setAdapter(new CartMultiAdapter(allItems));
+                    List<CartDisplayItem> allItems = new ArrayList<>();
 
+                    List<Cart.CartPizza> pizzas = cart.getPizzas();
+                    for (int i = 0; i < pizzas.size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.PIZZA, pizzas.get(i), i));
+                    }
 
+                    List<Cart.CartDrink> drinks = cart.getDrinks();
+                    for (int i = 0; i < drinks.size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.DRINK, drinks.get(i), i));
+                    }
+
+                    List<Cart.CartSide> sides = cart.getSides();
+                    for (int i = 0; i < sides.size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.SIDE, sides.get(i), i));
+                    }
+
+                    List<Cart.CartSalad> salads = cart.getSalads();
+                    for (int i = 0; i < salads.size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.SALAD, salads.get(i), i));
+                    }
+
+                    CartMultiAdapter adapter = new CartMultiAdapter(getContext(), allItems);
+                    recyclerView.setAdapter(adapter);
                 } else {
                     Toast.makeText(getContext(), "Không tìm thấy giỏ hàng", Toast.LENGTH_SHORT).show();
                 }
@@ -78,7 +90,6 @@ public class CartFragment extends Fragment {
                 Log.e("CART_API_ERROR", "Lỗi: " + t.getMessage(), t);
                 Toast.makeText(getContext(), "Lỗi khi tải giỏ hàng: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
-
         });
 
         return view;

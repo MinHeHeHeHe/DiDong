@@ -1,6 +1,7 @@
 package com.example.android_doan.network;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.android_doan.AddToCartRequest;
 import com.example.android_doan.ForgotPasswordRequest;
@@ -83,6 +84,9 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Body AddToCartRequest request
     );
+
+    @POST("/api/cart/deleteCartItem")
+    Call<UpdateCartResponse> deleteCartItem(@Header("Authorization") String token, @Body Map<String, Object> body);
     @POST("/api/cart/updateCartItemQuantity")
     Call<UpdateCartResponse> updateCartItemQuantity(
             @Header("Authorization") String token,

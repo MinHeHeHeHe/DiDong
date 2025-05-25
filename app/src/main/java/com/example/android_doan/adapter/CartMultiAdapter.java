@@ -1,19 +1,14 @@
 package com.example.android_doan.adapter;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,11 +18,14 @@ import com.example.android_doan.R;
 import com.example.android_doan.UpdateCartRequest;
 import com.example.android_doan.UpdateCartResponse;
 import com.example.android_doan.model.Cart;
+import com.example.android_doan.model.CartDisplayItem;
 import com.example.android_doan.model.Topping;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,18 +36,18 @@ public class CartMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_PIZZA = 0;
     private static final int TYPE_OTHERS = 1;
 
-    private final List<Object> items;
+    private final Context context;
+    private final List<CartDisplayItem> items;
 
-    public CartMultiAdapter(List<Object> items) {
+    public CartMultiAdapter(Context context, List<CartDisplayItem> items) {
+        this.context = context;
         this.items = items;
     }
 
     @Override
     public int getItemViewType(int position) {
-        Object item = items.get(position);
-        if (item instanceof Cart.CartPizza) {
-            return TYPE_PIZZA;
-        }
+        Object item = items.get(position).getItem();
+        if (item instanceof Cart.CartPizza) return TYPE_PIZZA;
         return TYPE_OTHERS;
     }
 
@@ -68,11 +66,13 @@ public class CartMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Object item = items.get(position);
-        if (holder instanceof PizzaViewHolder) {
-            ((PizzaViewHolder) holder).bind((Cart.CartPizza) item);
+        CartDisplayItem cartItem = items.get(position);
+        Object item = cartItem.getItem();
+
+        if (holder instanceof PizzaViewHolder && item instanceof Cart.CartPizza) {
+            ((PizzaViewHolder) holder).bind((Cart.CartPizza) item, cartItem.getMongoIndex(), cartItem.getType());
         } else {
-            ((OthersViewHolder) holder).bind(item);
+            ((OthersViewHolder) holder).bind(cartItem);
         }
     }
 
@@ -86,37 +86,41 @@ public class CartMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return prefs.getString("token", null);
     }
 
-
-    // update cart
-    private static void updateQuantity(Context context, String type, int index, int newQuantity) {
+    private void deleteItem(String type, int mongoIndex, int adapterIndex) {
         String token = getToken(context);
         if (token == null) return;
 
-        ApiService api = RetrofitClient.getApiService();
-        UpdateCartRequest request = new UpdateCartRequest(type, index, newQuantity);
+        Log.d("DELETE_ITEM", "Sending itemType=" + type + ", index=" + mongoIndex);
 
-        api.updateCartItemQuantity("Bearer " + token, request).enqueue(new Callback<UpdateCartResponse>() {
+        ApiService api = RetrofitClient.getApiService();
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("itemType", type);
+        body.put("itemIndex", mongoIndex);
+
+        api.deleteCartItem("Bearer " + token, body).enqueue(new Callback<UpdateCartResponse>() {
             @Override
             public void onResponse(Call<UpdateCartResponse> call, Response<UpdateCartResponse> response) {
+                Log.d("DELETE_ITEM", "Response code: " + response.code());
                 if (response.isSuccessful()) {
-                    Log.d("CartUpdate", " " + response.body().getMessage());
+                    Toast.makeText(context, "Đã xóa khỏi giỏ hàng", Toast.LENGTH_SHORT).show();
+                    items.remove(adapterIndex);
+                    notifyItemRemoved(adapterIndex);
+                    notifyItemRangeChanged(adapterIndex, items.size());
                 } else {
-                    Log.e("CartUpdate", " Error: " + response.code());
+                    Toast.makeText(context, "Lỗi xóa item: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UpdateCartResponse> call, Throwable t) {
-                Log.e("CartUpdate", "Network error: " + t.getMessage());
+                Toast.makeText(context, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    static class PizzaViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgDish;
+    class PizzaViewHolder extends RecyclerView.ViewHolder {
+        ImageView imgDish, btnRemove;
         TextView txtName, txtDetail, txtPrice;
-
-        ImageButton btnRemove;
 
         public PizzaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,107 +128,83 @@ public class CartMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             txtName = itemView.findViewById(R.id.txt_name);
             txtDetail = itemView.findViewById(R.id.txt_detail);
             txtPrice = itemView.findViewById(R.id.txt_price);
-
+            btnRemove = itemView.findViewById(R.id.btn_remove);
         }
 
-        public void bind(Cart.CartPizza cartPizza) {
-            Context context = itemView.getContext();
+        public void bind(Cart.CartPizza pizza, int mongoIndex, CartDisplayItem.Type type) {
+            if (pizza.getPizzaId() != null) {
+                txtName.setText(pizza.getPizzaId().getName());
+                Glide.with(context).load(pizza.getPizzaId().getImageUrl()).into(imgDish);
+                txtDetail.setText("");
+                txtPrice.setText(String.format("%.0f", pizza.getPizzaId().getBasePrice()));
+            } else if (pizza.getCustomPizza() != null) {
+                txtName.setText(pizza.getCustomPizza().getName());
+                Glide.with(context).load(pizza.getCustomPizza().getImageUrl()).into(imgDish);
 
-            // Nếu là pizza mặc định (có pizzaId)
-            if (cartPizza.getPizzaId() != null) {
-                txtName.setText(cartPizza.getPizzaId().getName());
-                String imageUrl = cartPizza.getPizzaId().getImageUrl();
-                Log.d("PizzaImage", "Default Pizza imageUrl: " + imageUrl);
-
-                if (imageUrl != null && !imageUrl.isEmpty()) {
-                    Glide.with(context).load(imageUrl).into(imgDish);
-                }
-            }
-
-            // Nếu là custom pizza
-            if (cartPizza.getCustomPizza() != null) {
-                txtName.setText(cartPizza.getCustomPizza().getName());
-
-                // ✅ Load ảnh nếu có pizzaId trong customPizza
-                if (cartPizza.getCustomPizza().getCustomPizzaId() != null) {
-                    String imageUrl = cartPizza.getCustomPizza().getImageUrl();
-                    Log.d("PizzaImage", "Custom Pizza imageUrl: " + imageUrl);
-
-                    if (imageUrl != null && !imageUrl.isEmpty()) {
-                        Glide.with(context).load(imageUrl).into(imgDish);
-                    }
-                } else {
-                    Log.d("PizzaImage", "Custom Pizza has no pizzaId");
-                }
-
-                // Toppings
                 StringBuilder toppings = new StringBuilder();
-                List<Topping> toppingList = cartPizza.getCustomPizza().getToppings();
-                if (toppingList != null) {
-                    for (int i = 0; i < toppingList.size(); i++) {
-                        toppings.append(toppingList.get(i).getName());
-                        if (i < toppingList.size() - 1) toppings.append(", ");
-                    }
+                List<Topping> toppingList = pizza.getCustomPizza().getToppings();
+                for (int i = 0; i < toppingList.size(); i++) {
+                    toppings.append(toppingList.get(i).getName());
+                    if (i < toppingList.size() - 1) toppings.append(", ");
                 }
 
-                txtDetail.setText("Topping: " + toppings + "\n Size: " +
-                        cartPizza.getCustomPizza().getSize() +
-                        " - Đế: " + cartPizza.getCustomPizza().getCrust_type());
-                txtPrice.setText(String.format("%.0f", cartPizza.getCustomPizza().getBase_price()));
+                txtDetail.setText("Topping: " + toppings + "\nSize: " +
+                        pizza.getCustomPizza().getSize() +
+                        " - Đế: " + pizza.getCustomPizza().getCrust_type());
+                txtPrice.setText(String.format("%.0f", pizza.getCustomPizza().getBase_price()));
             }
 
-
+            btnRemove.setOnClickListener(v -> {
+                int adapterIndex = getAdapterPosition();
+                if (adapterIndex != RecyclerView.NO_POSITION) {
+                    deleteItem(type.name().toLowerCase(), mongoIndex, adapterIndex);
+                }
+                Log.d("CART_REMOVE", " Clicked remove button at position " + getAdapterPosition());
+            });
         }
-
-
-
     }
 
-    static class OthersViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgDish;
-        TextView txtName, txtDetail, txtPrice;
-
+    class OthersViewHolder extends RecyclerView.ViewHolder {
+        ImageView imgDish, btnRemove;
+        TextView txtName, txtPrice, txtDetail;
 
         public OthersViewHolder(@NonNull View itemView) {
             super(itemView);
             imgDish = itemView.findViewById(R.id.img_dish);
             txtName = itemView.findViewById(R.id.txt_name);
-            txtDetail = itemView.findViewById(R.id.txt_detail);
             txtPrice = itemView.findViewById(R.id.txt_price);
-
+            txtDetail = itemView.findViewById(R.id.txt_detail);
+            btnRemove = itemView.findViewById(R.id.btn_remove);
         }
 
-        public void bind(Object item) {
-            Context context = itemView.getContext();
-            String type = "";
-            int quantity = 1;
+        public void bind(CartDisplayItem cartItem) {
+            Object item = cartItem.getItem();
+            String type = cartItem.getType().name().toLowerCase();
+            int mongoIndex = cartItem.getMongoIndex();
 
             if (item instanceof Cart.CartDrink) {
                 Cart.CartDrink drink = (Cart.CartDrink) item;
                 txtName.setText(drink.getDrinkId().getName());
                 txtPrice.setText(String.format("%.0f", drink.getDrinkId().getBasePrice()));
                 Glide.with(context).load(drink.getDrinkId().getImageUrl()).into(imgDish);
-                quantity = drink.getQuantity();
-                type = "drink";
             } else if (item instanceof Cart.CartSide) {
                 Cart.CartSide side = (Cart.CartSide) item;
                 txtName.setText(side.getSideId().getName());
                 txtPrice.setText(String.format("%.0f", side.getSideId().getBasePrice()));
                 Glide.with(context).load(side.getSideId().getImageUrl()).into(imgDish);
-                quantity = side.getQuantity();
-                type = "side";
             } else if (item instanceof Cart.CartSalad) {
                 Cart.CartSalad salad = (Cart.CartSalad) item;
                 txtName.setText(salad.getSaladId().getName());
                 txtPrice.setText(String.format("%.0f", salad.getSaladId().getBasePrice()));
                 Glide.with(context).load(salad.getSaladId().getImageUrl()).into(imgDish);
-                quantity = salad.getQuantity();
-                type = "salad";
             }
 
-
+            btnRemove.setOnClickListener(v -> {
+                int adapterIndex = getAdapterPosition();
+                if (adapterIndex != RecyclerView.NO_POSITION) {
+                    deleteItem(type, mongoIndex, adapterIndex);
+                }
+            });
         }
-
-
     }
 }
