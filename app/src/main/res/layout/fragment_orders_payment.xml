@@ -37,7 +37,6 @@ app:layout_constraintTop_toTopOf="@+id/viewPager">
         android:minLines="3"
         android:gravity="top|start"
         android:scrollbars="vertical"
-        android:verticalScrollBarEnabled="true"
         android:overScrollMode="always"
         app:layout_constraintTop_toBottomOf="@id/text_dia_chi"
         app:layout_constraintStart_toStartOf="parent"

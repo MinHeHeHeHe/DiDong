@@ -57,7 +57,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/black_circle"
-                    android:src="@drawable/ic_cancel_item"/>
+                    android:src="@drawable/ic_cancel_item"
+                    android:id="@+id/btn_remove"/>
             </LinearLayout>
         </LinearLayout>
 

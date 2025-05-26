@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.android_doan.R;
@@ -17,8 +19,8 @@ public class TrackingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_orders_tracking, container, false);
-        TextView tv = view.findViewById(R.id.fragment_tracking);
-        tv.setText("Theo dõi");
+        ConstraintLayout layout = view.findViewById(R.id.fragment_tracking);
+        layout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white));
         return view;
     }
 }
