@@ -41,14 +41,19 @@ public class CartFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_cart_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        loadCart(); // Gọi khi fragment được tạo lần đầu
+
+        return view;
+    }
+
+    private void loadCart() {
         SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String token = prefs.getString("token", null);
 
         if (token == null || token.isEmpty()) {
             Toast.makeText(getContext(), "Không tìm thấy token, bạn cần đăng nhập lại!", Toast.LENGTH_SHORT).show();
-            return view;
+            return;
         }
-        Log.d("DEBUG_TOKEN", "Token: " + token);
 
         ApiService apiService = RetrofitClient.getApiService();
         apiService.getCart("Bearer " + token).enqueue(new Callback<Cart>() {
@@ -58,31 +63,24 @@ public class CartFragment extends Fragment {
                     Cart cart = response.body();
                     List<CartDisplayItem> allItems = new ArrayList<>();
 
-                    List<Cart.CartPizza> pizzas = cart.getPizzas();
-                    for (int i = 0; i < pizzas.size(); i++) {
-                        allItems.add(new CartDisplayItem(Type.PIZZA, pizzas.get(i), i));
+                    for (int i = 0; i < cart.getPizzas().size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.PIZZA, cart.getPizzas().get(i), i));
                     }
-
-                    List<Cart.CartDrink> drinks = cart.getDrinks();
-                    for (int i = 0; i < drinks.size(); i++) {
-                        allItems.add(new CartDisplayItem(Type.DRINK, drinks.get(i), i));
+                    for (int i = 0; i < cart.getDrinks().size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.DRINK, cart.getDrinks().get(i), i));
                     }
-
-                    List<Cart.CartSide> sides = cart.getSides();
-                    for (int i = 0; i < sides.size(); i++) {
-                        allItems.add(new CartDisplayItem(Type.SIDE, sides.get(i), i));
+                    for (int i = 0; i < cart.getSides().size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.SIDE, cart.getSides().get(i), i));
                     }
-
-                    List<Cart.CartSalad> salads = cart.getSalads();
-                    for (int i = 0; i < salads.size(); i++) {
-                        allItems.add(new CartDisplayItem(Type.SALAD, salads.get(i), i));
+                    for (int i = 0; i < cart.getSalads().size(); i++) {
+                        allItems.add(new CartDisplayItem(Type.SALAD, cart.getSalads().get(i), i));
                     }
 
                     CartMultiAdapter adapter = new CartMultiAdapter(getContext(), allItems);
                     recyclerView.setAdapter(adapter);
-                } else {
-                    Toast.makeText(getContext(), "Không tìm thấy giỏ hàng", Toast.LENGTH_SHORT).show();
-                }
+                } ///else {
+                  ///  Toast.makeText(getContext(), "Không thể tải giỏ hàng", Toast.LENGTH_SHORT).show();
+               /// }
             }
 
             @Override
@@ -91,7 +89,13 @@ public class CartFragment extends Fragment {
                 Toast.makeText(getContext(), "Lỗi khi tải giỏ hàng: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-        return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCart(); // Tải lại giỏ hàng mỗi khi fragment hiển thị lại
+    }
+
+
 }

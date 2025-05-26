@@ -8,6 +8,7 @@ import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
 import com.example.android_doan.LoginRequest;
 import com.example.android_doan.LoginResponse;
+import com.example.android_doan.PaymentResponse;
 import com.example.android_doan.ResetPasswordRequest;
 import com.example.android_doan.ResetPasswordResponse;
 import com.example.android_doan.UpdateCartRequest;
@@ -120,6 +121,12 @@ public interface ApiService {
 
     @POST("api/user/reset-password")
     Call<ResetPasswordResponse> resetPassword(@Body ResetPasswordRequest request);
+
+    @POST("api/payment/initiatePayment")
+    Call<PaymentResponse> initiatePayment(@Header("Authorization") String token);
+
+    @POST("/api/cart/clearCart")
+    Call<ResponseBody> clearCart(@Header("Authorization") String token);
 
 
 }

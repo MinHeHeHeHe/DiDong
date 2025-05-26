@@ -23,11 +23,11 @@ app:layout_constraintTop_toTopOf="@+id/viewPager">
     app:layout_constraintStart_toStartOf="parent"/>
 
 <!-- EditText Địa chỉ -->
-    <EditText
-        android:id="@+id/edit_dia_chi"
+    <TextView
+        android:id="@+id/txt_dia_chi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="123 Phạm Văn Đồng, phường 13, quận Bình Thạnh, TP.HCM"
+        android:hint="123 Phạm Văn Đồng, phường 13, quận Bình Thạnh, TP.HCM"
         android:background="@drawable/bg_edittext"
         android:padding="8dp"
         android:textSize="20sp"
@@ -53,13 +53,13 @@ app:layout_constraintTop_toTopOf="@+id/viewPager">
     android:text="Tổng tiền"
     android:textStyle="bold"
     android:textSize="25sp"
-    app:layout_constraintTop_toBottomOf="@id/edit_dia_chi"
+    app:layout_constraintTop_toBottomOf="@id/txt_dia_chi"
     app:layout_constraintStart_toStartOf="parent"
     android:layout_marginTop="16dp"/>
 
 <!-- EditText Số tiền -->
 <TextView
-    android:id="@+id/edit_tong_tien"
+    android:id="@+id/txt_tong_tien"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_edittext"
@@ -73,6 +73,7 @@ app:layout_constraintTop_toTopOf="@+id/viewPager">
     android:paddingVertical="5dp"
     android:paddingHorizontal="10dp"/>
 
+
 <!-- TextView Đơn vị -->
 <TextView
     android:id="@+id/text_don_vi"
@@ -81,21 +82,31 @@ app:layout_constraintTop_toTopOf="@+id/viewPager">
     android:text="Đồng"
     android:textSize="14sp"
 
-    app:layout_constraintBaseline_toBaselineOf="@id/edit_tong_tien"
-    app:layout_constraintStart_toEndOf="@id/edit_tong_tien"
+    app:layout_constraintBaseline_toBaselineOf="@id/txt_tong_tien"
+    app:layout_constraintStart_toEndOf="@id/txt_tong_tien"
     android:layout_marginStart="8dp"
 
     />
 
+    <TextView
+        android:id="@+id/text_thanh_toan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phương thức thanh toán"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@id/txt_tong_tien"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"/>
 <!-- Spinner Hình thức thanh toán -->
 <Spinner
     android:id="@+id/spinner_thanh_toan"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="8dp"
     android:padding="10dp"
     android:background="@drawable/bg_edittext"
-    app:layout_constraintTop_toBottomOf="@id/edit_tong_tien"
+    app:layout_constraintTop_toBottomOf="@id/text_thanh_toan"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -106,7 +117,7 @@ app:layout_constraintTop_toTopOf="@+id/viewPager">
     android:layout_height="wrap_content"
     android:text="Thanh toán"
     android:textStyle="bold"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="25dp"
     android:layout_marginHorizontal="100dp"
     android:background="@drawable/bg_button_thanh_toan"
     android:textColor="@android:color/white"
