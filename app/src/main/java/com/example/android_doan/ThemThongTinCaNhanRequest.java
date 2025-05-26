@@ -18,7 +18,7 @@ public class ThemThongTinCaNhanRequest {
         this.role = role;
     }
 
-    public ThemThongTinCaNhanRequest(String username, String date_of_birth, String address, String phone) {
+    public ThemThongTinCaNhanRequest(String username, String date_of_birth, String phone, String address) {
         this.username = username;
         this.dateOfBirth = date_of_birth;
         this.address = address;
