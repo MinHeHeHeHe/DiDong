@@ -77,9 +77,10 @@ public class SideDishAdapter extends RecyclerView.Adapter<SideDishAdapter.SideDi
                 if (constraint == null || constraint.length() == 0) {
                     filteredList.addAll(sideDishListFull);
                 } else {
-                    String filterPattern = constraint.toString().toLowerCase().trim();
+                    String filterPattern = removeVietnameseAccent(constraint.toString().toLowerCase().trim().replaceAll("\\s+", ""));
                     for (SideDish item : sideDishListFull) {
-                        if (item.getName().toLowerCase().contains(filterPattern)) {
+                        String name = removeVietnameseAccent(item.getName()).replaceAll("\\s+", "");
+                        if (name.contains(filterPattern)) {
                             filteredList.add(item);
                         }
                     }
@@ -98,6 +99,18 @@ public class SideDishAdapter extends RecyclerView.Adapter<SideDishAdapter.SideDi
                 notifyDataSetChanged();
             }
         };
+    }
+
+    private String removeVietnameseAccent(String str) {
+        str = str.toLowerCase();
+        str = str.replaceAll("[àáạảãâầấậẩẫăằắặẳẵ]", "a");
+        str = str.replaceAll("[èéẹẻẽêềếệểễ]", "e");
+        str = str.replaceAll("[ìíịỉĩ]", "i");
+        str = str.replaceAll("[òóọỏõôồốộổỗơờớợởỡ]", "o");
+        str = str.replaceAll("[ùúụủũưừứựửữ]", "u");
+        str = str.replaceAll("[ỳýỵỷỹ]", "y");
+        str = str.replaceAll("đ", "d");
+        return str;
     }
 
     static class SideDishViewHolder extends RecyclerView.ViewHolder {

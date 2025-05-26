@@ -43,11 +43,6 @@
             android:background="@drawable/background_chinh_sua_thong_tin"
             android:id="@+id/textChinhSuaThongTin">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -101,10 +96,7 @@
             android:id="@+id/textDangXuat"
             android:background="@drawable/background_chinh_sua_thong_tin">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+
 
             <FrameLayout
                 android:layout_width="116dp"
@@ -142,11 +134,6 @@
             android:layout_marginTop="336dp"
             android:layout_gravity="top|left"
             android:background="@drawable/background_chinh_sua_thong_tin">
-
-            <ImageView
-                android:layout_width="384dp"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
 
             <FrameLayout
                 android:layout_width="match_parent"
