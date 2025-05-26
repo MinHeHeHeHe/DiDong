@@ -1,13 +1,118 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:padding="30dp"
+android:background="@drawable/bg_rounded_corner_white"
+android:id="@+id/fragment_payment"
+    android:layout_marginTop="400dp"
+    android:layout_marginHorizontal="30dp"
+app:layout_constraintTop_toTopOf="@+id/viewPager">
 
-    <TextView
-        android:id="@+id/text_payment_title"
-        android:layout_width="wrap_content"
+<!-- Tiêu đề "Địa chỉ" -->
+<TextView
+    android:id="@+id/text_dia_chi"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Địa chỉ"
+    android:textStyle="bold"
+    android:textSize="25sp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+<!-- EditText Địa chỉ -->
+    <EditText
+        android:id="@+id/edit_dia_chi"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Thanh toán"
+        android:text="123 Phạm Văn Đồng, phường 13, quận Bình Thạnh, TP.HCM"
+        android:background="@drawable/bg_edittext"
+        android:padding="8dp"
         android:textSize="20sp"
-        android:textStyle="bold" />
-</FrameLayout>
+        android:inputType="textMultiLine|textPostalAddress"
+        android:lines="3"
+        android:maxLines="3"
+        android:minLines="3"
+        android:gravity="top|start"
+        android:scrollbars="vertical"
+        android:verticalScrollBarEnabled="true"
+        android:overScrollMode="always"
+        app:layout_constraintTop_toBottomOf="@id/text_dia_chi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="1.0"
+        android:layout_marginTop="8dp"/>
+
+
+<!-- Tiêu đề "Tổng tiền" -->
+<TextView
+    android:id="@+id/text_tong_tien"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Tổng tiền"
+    android:textStyle="bold"
+    android:textSize="25sp"
+    app:layout_constraintTop_toBottomOf="@id/edit_dia_chi"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginTop="16dp"/>
+
+<!-- EditText Số tiền -->
+<TextView
+    android:id="@+id/edit_tong_tien"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_edittext"
+    android:hint="0"
+    android:textSize="20sp"
+    app:layout_constraintTop_toBottomOf="@id/text_tong_tien"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/text_don_vi"
+    app:layout_constraintWidth_percent="0.5"
+    android:layout_marginTop="8dp"
+    android:paddingVertical="5dp"
+    android:paddingHorizontal="10dp"/>
+
+<!-- TextView Đơn vị -->
+<TextView
+    android:id="@+id/text_don_vi"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Đồng"
+    android:textSize="14sp"
+
+    app:layout_constraintBaseline_toBaselineOf="@id/edit_tong_tien"
+    app:layout_constraintStart_toEndOf="@id/edit_tong_tien"
+    android:layout_marginStart="8dp"
+
+    />
+
+<!-- Spinner Hình thức thanh toán -->
+<Spinner
+    android:id="@+id/spinner_thanh_toan"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:padding="10dp"
+    android:background="@drawable/bg_edittext"
+    app:layout_constraintTop_toBottomOf="@id/edit_tong_tien"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+<!-- Button Thanh toán -->
+<Button
+    android:id="@+id/btn_thanh_toan"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="Thanh toán"
+    android:textStyle="bold"
+    android:layout_marginTop="16dp"
+    android:layout_marginHorizontal="100dp"
+    android:background="@drawable/bg_button_thanh_toan"
+    android:textColor="@android:color/white"
+    app:layout_constraintTop_toBottomOf="@id/spinner_thanh_toan"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

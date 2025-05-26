@@ -17,7 +17,7 @@ public class TrackingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_orders_tracking, container, false);
-        TextView tv = view.findViewById(R.id.text_tracking_title);
+        TextView tv = view.findViewById(R.id.fragment_tracking);
         tv.setText("Theo dõi");
         return view;
     }

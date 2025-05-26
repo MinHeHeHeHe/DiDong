@@ -17,7 +17,7 @@ public class PaymentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_orders_payment, container, false);
-        TextView tv = view.findViewById(R.id.text_payment_title);
+        TextView tv = view.findViewById(R.id.fragment_payment);
         tv.setText("Thanh toán");
         return view;
     }

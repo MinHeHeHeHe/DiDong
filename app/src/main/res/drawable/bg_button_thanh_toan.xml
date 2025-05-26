@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Gradient màu cam -> hồng -->
+    <gradient
+        android:startColor="#FF8960"
+        android:endColor="#FF62A5"
+        android:angle="0" />
+
+    <!-- Bo tròn viền -->
+    <corners android:radius="12dp" />
+
+</shape>
