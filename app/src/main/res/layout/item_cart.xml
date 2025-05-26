@@ -53,11 +53,13 @@
                     android:text="80.000"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="14sp"/>
+
                 <ImageView
+                    android:id="@+id/btn_remove"
                     android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/black_circle"
-                    android:src="@drawable/ic_cancel_item"/>
+                    android:src="@drawable/ic_cancel_item" />
             </LinearLayout>
         </LinearLayout>
 

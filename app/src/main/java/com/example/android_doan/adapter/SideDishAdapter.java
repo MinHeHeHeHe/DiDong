@@ -1,9 +1,12 @@
 package com.example.android_doan.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,56 +15,89 @@ import com.example.android_doan.Activity.DetailItemActivity;
 import com.example.android_doan.R;
 import com.example.android_doan.model.SideDish;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+public class SideDishAdapter extends RecyclerView.Adapter<SideDishAdapter.SideDishViewHolder> implements Filterable {
 
-public class SideDishAdapter extends RecyclerView.Adapter<SideDishAdapter.SideDishViewHolder> {
+    private List<SideDish> sideDishList;
+    private List<SideDish> sideDishListFull;
 
-    private List<SideDish> sideDishes;
-
-    public SideDishAdapter(List<SideDish> sideDishes) {
-        this.sideDishes = sideDishes;
+    public SideDishAdapter(List<SideDish> sideDishList) {
+        this.sideDishList = sideDishList;
+        this.sideDishListFull = new ArrayList<>(sideDishList);
     }
 
     @NonNull
     @Override
     public SideDishViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home_pizza, parent, false); // Dùng chung layout
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pizza, parent, false);
         return new SideDishViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SideDishViewHolder holder, int position) {
-        SideDish sideDish = sideDishes.get(position);
+        SideDish sideDish = sideDishList.get(position);
         holder.txtName.setText(sideDish.getName());
-        holder.txtPrice.setText("$" + sideDish.getBasePrice());
+        holder.txtPrice.setText(String.format("%.0f₫", sideDish.getBasePrice()));
 
-        if (sideDish.getImageUrl() != null && !sideDish.getImageUrl().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(sideDish.getImageUrl())
-                    .into(holder.imgDish);
-        } else {
-            holder.imgDish.setImageResource(R.drawable.ic_launcher_background);
-        }
+        Glide.with(holder.itemView.getContext())
+                .load(sideDish.getImageUrl())
+                .into(holder.imgDish);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailItemActivity.class);
-            intent.putExtra("item", sideDish);
-            holder.itemView.getContext().startActivity(intent);
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetailItemActivity.class);
+            intent.putExtra("side", sideDish);
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return sideDishes != null ? sideDishes.size() : 0;
+        return sideDishList != null ? sideDishList.size() : 0;
     }
 
-    public void updateSideDishes(List<SideDish> newSideDishes) {
-        this.sideDishes = newSideDishes;
+    public void updateSideDishes(List<SideDish> newList) {
+        sideDishList.clear();
+        sideDishList.addAll(newList);
+        sideDishListFull = new ArrayList<>(newList);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                List<SideDish> filteredList = new ArrayList<>();
+                if (constraint == null || constraint.length() == 0) {
+                    filteredList.addAll(sideDishListFull);
+                } else {
+                    String filterPattern = constraint.toString().toLowerCase().trim();
+                    for (SideDish item : sideDishListFull) {
+                        if (item.getName().toLowerCase().contains(filterPattern)) {
+                            filteredList.add(item);
+                        }
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                sideDishList.clear();
+                if (results.values != null) {
+                    sideDishList.addAll((List<SideDish>) results.values);
+                }
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static class SideDishViewHolder extends RecyclerView.ViewHolder {

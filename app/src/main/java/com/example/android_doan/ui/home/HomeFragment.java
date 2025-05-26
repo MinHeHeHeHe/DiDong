@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -44,6 +45,7 @@ public class HomeFragment extends Fragment {
     private SideDishAdapter sideDishAdapter;
     private SaladAdapter saladAdapter;
     private CardView selectedCard = null;
+    private android.widget.Filterable currentFilterableAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,14 +54,11 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Hiển thị lời chào bằng username từ SharedPreferences
         SharedPreferences prefs = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String token = prefs.getString("token", null);
         String userId = prefs.getString("userId", null);
-
-
-
         String avatarUrl = prefs.getString("avatarUrl", null);
+
         Log.d("DEBUG", "avatarUrl từ SharedPreferences: " + avatarUrl);
 
         if (token != null && userId != null) {
@@ -90,7 +89,7 @@ public class HomeFragment extends Fragment {
         } else {
             Log.e("TOKEN_ERROR", "Token hoặc User ID null");
         }
-        // RecyclerView setup
+
         RecyclerView recyclerView = binding.recyclerList;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
@@ -99,17 +98,35 @@ public class HomeFragment extends Fragment {
         sideDishAdapter = new SideDishAdapter(new ArrayList<>());
         saladAdapter = new SaladAdapter(new ArrayList<>());
 
-        recyclerView.setAdapter(pizzaAdapter); // mặc định là pizza
+        recyclerView.setAdapter(pizzaAdapter);
+        currentFilterableAdapter = pizzaAdapter;
         fetchPizzas();
 
-        // Gán sự kiện chọn danh mục
         setupCategorySelection(binding.btnPizza, binding.cardPizza, "pizza");
         setupCategorySelection(binding.btnDrink, binding.cardDrink, "drink");
         setupCategorySelection(binding.btnSide, binding.cardSide, "side");
         setupCategorySelection(binding.btnSalad, binding.cardSalad, "salad");
 
-        // Chọn mặc định là Pizza
         binding.btnPizza.performClick();
+
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (currentFilterableAdapter != null) {
+                    try {
+                        currentFilterableAdapter.getFilter().filter(newText);
+                    } catch (Exception e) {
+                        Log.e("SEARCH_ERROR", "Filter failed: " + e.getMessage());
+                    }
+                }
+                return false;
+            }
+        });
 
         return root;
     }
@@ -126,30 +143,36 @@ public class HomeFragment extends Fragment {
                 cardView.setCardBackgroundColor(getResources().getColor(R.color.light_gray));
                 selectedCard = cardView;
 
-                // Tải dữ liệu theo danh mục
                 switch (type) {
                     case "pizza":
                         binding.recyclerList.setAdapter(pizzaAdapter);
+                        currentFilterableAdapter = pizzaAdapter;
                         fetchPizzas();
                         break;
                     case "drink":
                         binding.recyclerList.setAdapter(drinkAdapter);
+                        currentFilterableAdapter = drinkAdapter;
                         fetchDrinks();
                         break;
                     case "side":
                         binding.recyclerList.setAdapter(sideDishAdapter);
+                        currentFilterableAdapter = sideDishAdapter;
                         fetchSideDishes();
                         break;
                     case "salad":
                         binding.recyclerList.setAdapter(saladAdapter);
+                        currentFilterableAdapter = saladAdapter;
                         fetchSalads();
                         break;
+                }
+
+                if (binding.searchView != null && binding.searchView.getQuery().length() > 0) {
+                    binding.searchView.setQuery("", false);
                 }
             }
         });
     }
 
-    // lay ds pizza
     private void fetchPizzas() {
         RetrofitClient.getApiService().getAllPizzas().enqueue(new Callback<List<Pizza>>() {
             @Override
@@ -167,7 +190,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-    // lay ds drink
+
     private void fetchDrinks() {
         RetrofitClient.getApiService().getAllDrinks().enqueue(new Callback<List<Drink>>() {
             @Override
@@ -185,7 +208,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-    // lay ds side dish
+
     private void fetchSideDishes() {
         RetrofitClient.getApiService().getAllSide().enqueue(new Callback<List<SideDish>>() {
             @Override
@@ -203,7 +226,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-    // lay ds salad
+
     private void fetchSalads() {
         RetrofitClient.getApiService().getAllSalad().enqueue(new Callback<List<Salad>>() {
             @Override
@@ -226,5 +249,6 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        currentFilterableAdapter = null;
     }
 }
