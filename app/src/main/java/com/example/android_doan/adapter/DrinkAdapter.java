@@ -1,9 +1,12 @@
 package com.example.android_doan.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,56 +15,89 @@ import com.example.android_doan.Activity.DetailItemActivity;
 import com.example.android_doan.R;
 import com.example.android_doan.model.Drink;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder> implements Filterable {
 
-public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder> {
+    private List<Drink> drinkList;
+    private List<Drink> drinkListFull;
 
-    private List<Drink> drinks;
-
-    public DrinkAdapter(List<Drink> drinks) {
-        this.drinks = drinks;
+    public DrinkAdapter(List<Drink> drinkList) {
+        this.drinkList = drinkList;
+        this.drinkListFull = new ArrayList<>(drinkList);
     }
 
     @NonNull
     @Override
     public DrinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home_pizza, parent, false); // Dùng chung layout
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pizza, parent, false);
         return new DrinkViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DrinkViewHolder holder, int position) {
-        Drink drink = drinks.get(position);
+        Drink drink = drinkList.get(position);
         holder.txtName.setText(drink.getName());
-        holder.txtPrice.setText("$" + drink.getBasePrice());
+        holder.txtPrice.setText(String.format("%.0f₫", drink.getBasePrice()));
 
-        if (drink.getImageUrl() != null && !drink.getImageUrl().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(drink.getImageUrl())
-                    .into(holder.imgDish);
-        } else {
-            holder.imgDish.setImageResource(R.drawable.ic_launcher_background);
-        }
+        Glide.with(holder.itemView.getContext())
+                .load(drink.getImageUrl())
+                .into(holder.imgDish);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailItemActivity.class);
-            intent.putExtra("item", drink);
-            holder.itemView.getContext().startActivity(intent);
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetailItemActivity.class);
+            intent.putExtra("drink", drink);
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return drinks != null ? drinks.size() : 0;
+        return drinkList != null ? drinkList.size() : 0;
     }
 
-    public void updateDrinks(List<Drink> newDrinks) {
-        this.drinks = newDrinks;
+    public void updateDrinks(List<Drink> newList) {
+        drinkList.clear();
+        drinkList.addAll(newList);
+        drinkListFull = new ArrayList<>(newList);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                List<Drink> filteredList = new ArrayList<>();
+                if (constraint == null || constraint.length() == 0) {
+                    filteredList.addAll(drinkListFull);
+                } else {
+                    String filterPattern = constraint.toString().toLowerCase().trim();
+                    for (Drink item : drinkListFull) {
+                        if (item.getName().toLowerCase().contains(filterPattern)) {
+                            filteredList.add(item);
+                        }
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                drinkList.clear();
+                if (results.values != null) {
+                    drinkList.addAll((List<Drink>) results.values);
+                }
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static class DrinkViewHolder extends RecyclerView.ViewHolder {

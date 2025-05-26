@@ -7,7 +7,9 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.example.android_doan.AddToCartRequest;
 import com.example.android_doan.R;
@@ -15,6 +17,8 @@ import com.example.android_doan.model.Drink;
 import com.example.android_doan.model.Salad;
 import com.example.android_doan.model.SideDish;
 import com.example.android_doan.network.RetrofitClient;
+
+import java.util.Collections;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,25 +51,15 @@ public class DetailItemActivity extends AppCompatActivity {
             return false;
         });
 
-        Object item = getIntent().getSerializableExtra("item");
-
-        // Nút quay lại
-        ImageView imgBack = findViewById(R.id.image_arrow_left);
-        imgBack.setOnClickListener(v -> finish());
-        imgBack.setOnTouchListener((v, event) -> {
-            v.setAlpha(event.getAction() == MotionEvent.ACTION_DOWN ? 0.6f : 1.0f);
-            return false;
-        });
-
-
-        if (item instanceof Drink) {
-            drink = (Drink) item;
+        // Nhận đúng key
+        if (getIntent().hasExtra("drink")) {
+            drink = (Drink) getIntent().getSerializableExtra("drink");
             bindData(drink.getName(), drink.getBasePrice(), drink.getDescription(), drink.getImageUrl());
-        } else if (item instanceof SideDish) {
-            sideDish = (SideDish) item;
+        } else if (getIntent().hasExtra("side")) {
+            sideDish = (SideDish) getIntent().getSerializableExtra("side");
             bindData(sideDish.getName(), sideDish.getBasePrice(), sideDish.getDescription(), sideDish.getImageUrl());
-        } else if (item instanceof Salad) {
-            salad = (Salad) item;
+        } else if (getIntent().hasExtra("salad")) {
+            salad = (Salad) getIntent().getSerializableExtra("salad");
             bindData(salad.getName(), salad.getBasePrice(), salad.getDescription(), salad.getImageUrl());
         } else {
             Toast.makeText(this, "Không có dữ liệu chi tiết", Toast.LENGTH_SHORT).show();
@@ -84,31 +78,26 @@ public class DetailItemActivity extends AppCompatActivity {
 
             if (drink != null) {
                 AddToCartRequest.DrinkData drinkData = new AddToCartRequest.DrinkData(drink.getId(), 1);
-                request.setDrinks(java.util.Collections.singletonList(drinkData));
+                request.setDrinks(Collections.singletonList(drinkData));
             } else if (sideDish != null) {
                 AddToCartRequest.SideData sideData = new AddToCartRequest.SideData(sideDish.getId(), 1);
-                request.setSides(java.util.Collections.singletonList(sideData));
+                request.setSides(Collections.singletonList(sideData));
             } else if (salad != null) {
                 AddToCartRequest.SaladData saladData = new AddToCartRequest.SaladData(salad.getId(), 1);
-                request.setSalads(java.util.Collections.singletonList(saladData));
+                request.setSalads(Collections.singletonList(saladData));
             }
 
             String bearerToken = "Bearer " + token;
 
-            RetrofitClient.getApiService().addToCart(bearerToken, request).enqueue(new Callback<ResponseBody>() {
+            RetrofitClient.getApiService().addToCart(bearerToken, request).enqueue(new Callback<>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
-                        String itemName = "";
-                        if (drink != null) {
-                            itemName = drink.getName();
-                        } else if (sideDish != null) {
-                            itemName = sideDish.getName();
-                        } else if (salad != null) {
-                            itemName = salad.getName();
-                        }
+                        String itemName = drink != null ? drink.getName()
+                                : sideDish != null ? sideDish.getName()
+                                : salad != null ? salad.getName()
+                                : "món";
                         Toast.makeText(DetailItemActivity.this, "Đã thêm \"" + itemName + "\" vào giỏ hàng!", Toast.LENGTH_SHORT).show();
-
                     } else {
                         Toast.makeText(DetailItemActivity.this, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
                         Log.e("ADD_TO_CART_FAIL", "Code: " + response.code());
@@ -126,7 +115,7 @@ public class DetailItemActivity extends AppCompatActivity {
 
     private void bindData(String name, double price, String description, String imageUrl) {
         txtName.setText(name);
-        txtPrice.setText("$" + price);
+        txtPrice.setText(String.format("%.0f₫", price));
         txtDescription.setText(description);
         Glide.with(this).load(imageUrl).into(imageItem);
     }

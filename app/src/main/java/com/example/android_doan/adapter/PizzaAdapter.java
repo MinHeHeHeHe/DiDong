@@ -1,9 +1,12 @@
 package com.example.android_doan.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,56 +15,89 @@ import com.example.android_doan.Activity.DetailPizzaActivity;
 import com.example.android_doan.R;
 import com.example.android_doan.model.Pizza;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> implements Filterable {
 
-public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> {
+    private List<Pizza> pizzaList;
+    private List<Pizza> pizzaListFull;
 
-    private List<Pizza> pizzas;
-
-    public PizzaAdapter(List<Pizza> pizzas) {
-        this.pizzas = pizzas;
+    public PizzaAdapter(List<Pizza> pizzaList) {
+        this.pizzaList = pizzaList;
+        this.pizzaListFull = new ArrayList<>(pizzaList);
     }
 
     @NonNull
     @Override
     public PizzaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home_pizza, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pizza, parent, false);
         return new PizzaViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
-        Pizza pizza = pizzas.get(position);
+        Pizza pizza = pizzaList.get(position);
         holder.txtName.setText(pizza.getName());
-        holder.txtPrice.setText("$" + pizza.getBasePrice());
-        // Load ảnh từ URL MongoDB (image_url)
-        if (pizza.getImageUrl() != null && !pizza.getImageUrl().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(pizza.getImageUrl())
+        holder.txtPrice.setText(String.format("%.0f₫", pizza.getBasePrice()));
 
-                    .into(holder.imgDish);
-        } else {
-            holder.imgDish.setImageResource(R.drawable.ic_launcher_background);
-        }
+        Glide.with(holder.itemView.getContext())
+                .load(pizza.getImageUrl())
+                .into(holder.imgDish);
+
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailPizzaActivity.class);
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetailPizzaActivity.class);
             intent.putExtra("pizza", pizza);
-            holder.itemView.getContext().startActivity(intent);
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return pizzas != null ? pizzas.size() : 0;
+        return pizzaList != null ? pizzaList.size() : 0;
     }
 
-    public void updatePizzas(List<Pizza> newPizzas) {
-        this.pizzas = newPizzas;
+    public void updatePizzas(List<Pizza> newList) {
+        pizzaList.clear();
+        pizzaList.addAll(newList);
+        pizzaListFull = new ArrayList<>(newList);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                List<Pizza> filteredList = new ArrayList<>();
+                if (constraint == null || constraint.length() == 0) {
+                    filteredList.addAll(pizzaListFull);
+                } else {
+                    String filterPattern = constraint.toString().toLowerCase().trim();
+                    for (Pizza item : pizzaListFull) {
+                        if (item.getName().toLowerCase().contains(filterPattern)) {
+                            filteredList.add(item);
+                        }
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                pizzaList.clear();
+                if (results.values != null) {
+                    pizzaList.addAll((List<Pizza>) results.values);
+                }
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static class PizzaViewHolder extends RecyclerView.ViewHolder {
