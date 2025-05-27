@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.android_doan.AddToCartRequest;
+import com.example.android_doan.DeliveryResponse;
 import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
 import com.example.android_doan.LoginRequest;
@@ -127,6 +128,18 @@ public interface ApiService {
 
     @POST("/api/cart/clearCart")
     Call<ResponseBody> clearCart(@Header("Authorization") String token);
+
+    @PUT("api/delivery/confirmDelivery/{id}")
+    Call<ResponseBody> confirmDelivery(
+            @Header("Authorization") String token,
+            @Path("id") String deliveryId
+    );
+
+    @POST("api/delivery/createDelivery")
+    Call<DeliveryResponse> createDelivery(@Header("Authorization") String token);
+
+
+
 
 
 }

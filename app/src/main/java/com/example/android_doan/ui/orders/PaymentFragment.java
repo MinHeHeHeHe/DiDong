@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.android_doan.DeliveryResponse;
 import com.example.android_doan.LoginResponse;
 import com.example.android_doan.PaymentResponse;
 import com.example.android_doan.R;
@@ -174,44 +175,43 @@ public class PaymentFragment extends Fragment {
         }
 
         ApiService apiService = RetrofitClient.getApiService();
-        Call<PaymentResponse> call = apiService.initiatePayment("Bearer " + token);
+        Call<DeliveryResponse> call = apiService.createDelivery("Bearer " + token);
 
-        call.enqueue(new Callback<PaymentResponse>() {
+        call.enqueue(new Callback<DeliveryResponse>() {
             @Override
-            public void onResponse(Call<PaymentResponse> call, Response<PaymentResponse> response) {
+            public void onResponse(Call<DeliveryResponse> call, Response<DeliveryResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    String paymentUrl = response.body().getPaymentUrl();
+                    DeliveryResponse deliveryResponse = response.body();
+                    String deliveryId = deliveryResponse.getDeliveryId();
+                    String trackingUrl = deliveryResponse.getTrackingUrl();
 
-                    if (isMomo && paymentUrl != null && !paymentUrl.isEmpty()) {
-                        // 👉 Nếu là MOMO thì mở đường dẫn
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paymentUrl));
+                    // Lưu deliveryId để dùng sau
+                    SharedPreferences.Editor editor = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).edit();
+                    editor.putString("deliveryId", deliveryId);
+                    editor.apply();
+
+
+                    // Mở MOMO nếu có, còn COD thì thông báo
+                    if (isMomo && trackingUrl != null && !trackingUrl.isEmpty()) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trackingUrl));
                         startActivity(browserIntent);
-                    }
-
-                    clearCartAfterPayment(); // Xóa giỏ hàng cho cả MOMO và COD
-                    if (!isMomo) {
+                    } else {
                         Toast.makeText(getContext(), "Thanh toán COD thành công", Toast.LENGTH_SHORT).show();
                     }
+
+                    clearCartAfterPayment();
                 } else {
-                    try {
-                        String errorBody = response.errorBody().string();
-                        Log.e("PAYMENT_ERROR", "Code: " + response.code() + ", Body: " + errorBody);
-
-                    } catch (Exception e) {
-                        Log.e("PAYMENT_ERROR", "Không đọc được errorBody", e);
-                    }
-
-                    Toast.makeText(getContext(), "Lỗi khi tạo thanh toán", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Không thể tạo đơn giao hàng", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<PaymentResponse> call, Throwable t) {
-                Log.e("PaymentFragment", "API lỗi khi gọi initiatePayment", t);
-                Toast.makeText(getContext(), "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<DeliveryResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 
 

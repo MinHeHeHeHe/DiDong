@@ -5,83 +5,87 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:padding="30dp"
-    android:layout_marginTop="400dp"
-    android:layout_marginHorizontal="30dp"
 android:background="@drawable/bg_rounded_corner_white"
+android:layout_marginTop="400dp"
+android:layout_marginHorizontal="30dp"
 android:id="@+id/fragment_tracking">
 
 <!-- Tình trạng xác nhận -->
 <TextView
-    android:id="@+id/title_xac_nhan"
+    android:id="@+id/txt_xac_nhan_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Tình trạng xác nhận"
     android:textStyle="bold"
     android:textSize="25sp"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"/>
+    app:layout_constraintStart_toStartOf="parent" />
 
 <TextView
-    android:id="@+id/status_xac_nhan"
+    android:id="@+id/txt_xac_nhan_status"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Đã xác nhận"
-    android:background="@drawable/bg_edittext"
+    android:textSize="20sp"
     android:paddingHorizontal="12dp"
     android:paddingVertical="6dp"
-    android:textSize="20sp"
-    app:layout_constraintTop_toBottomOf="@id/title_xac_nhan"
+    android:background="@drawable/bg_edittext"
+    android:textColor="@android:color/black"
+    app:layout_constraintTop_toBottomOf="@id/txt_xac_nhan_title"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_marginTop="8dp"/>
+    android:layout_marginTop="4dp" />
 
 <!-- Quá trình chuẩn bị -->
 <TextView
-    android:id="@+id/title_chuan_bi"
+    android:id="@+id/txt_chuan_bi_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Quá trình chuẩn bị"
     android:textStyle="bold"
-    android:textSize="20sp"
-    app:layout_constraintTop_toBottomOf="@id/status_xac_nhan"
+    android:textSize="25sp"
+    app:layout_constraintTop_toBottomOf="@id/txt_xac_nhan_status"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_marginTop="16dp"/>
+    android:layout_marginTop="12dp" />
 
 <TextView
-    android:id="@+id/status_chuan_bi"
+    android:id="@+id/txt_chuan_bi_status"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Đang chuẩn bị đơn hàng"
-    android:background="@drawable/bg_edittext"
+    android:text="Hoàn tất đơn hàng"
+    android:textSize="20sp"
     android:paddingHorizontal="12dp"
     android:paddingVertical="6dp"
-    android:textSize="20sp"
-    app:layout_constraintTop_toBottomOf="@id/title_chuan_bi"
+    android:background="@drawable/bg_edittext"
+    android:textColor="@android:color/black"
+    app:layout_constraintTop_toBottomOf="@id/txt_chuan_bi_title"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_marginTop="8dp"/>
+    android:layout_marginTop="4dp" />
 
 <!-- Giao hàng -->
 <TextView
-    android:id="@+id/title_giao_hang"
+    android:id="@+id/txt_giao_hang_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Giao hàng"
     android:textStyle="bold"
-    android:textSize="20sp"
-    app:layout_constraintTop_toBottomOf="@id/status_chuan_bi"
+    android:textSize="25sp"
+    app:layout_constraintTop_toBottomOf="@id/txt_chuan_bi_status"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_marginTop="16dp"/>
+    android:layout_marginTop="12dp" />
 
 <TextView
-    android:id="@+id/status_giao_hang"
+    android:id="@+id/txt_giao_hang_status"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Đang giao"
-    android:background="@drawable/bg_edittext"
+    android:textSize="20sp"
     android:paddingHorizontal="12dp"
     android:paddingVertical="6dp"
-    android:textSize="20sp"
-    app:layout_constraintTop_toBottomOf="@id/title_giao_hang"
+    android:background="@drawable/bg_edittext"
+    android:textColor="@android:color/black"
+    app:layout_constraintTop_toBottomOf="@id/txt_giao_hang_title"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_marginTop="8dp"/>
+    android:layout_marginTop="4dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -9,6 +9,7 @@ public class PaymentResponse {
     @SerializedName("paymentId")
     private String paymentId;
 
+
     public String getPaymentUrl() {
         return paymentUrl;
     }

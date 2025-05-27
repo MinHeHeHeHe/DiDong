@@ -23,4 +23,13 @@ public class TrackingFragment extends Fragment {
         layout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white));
         return view;
     }
+
+    public void updateDeliveryStatus(String status) {
+        if (getView() != null) {
+            TextView txt = getView().findViewById(R.id.txt_giao_hang_status);
+            txt.setText(status);
+        }
+    }
+
+
 }

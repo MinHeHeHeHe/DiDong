@@ -7,9 +7,8 @@ android:layout_height="wrap_content"
 android:padding="30dp"
 android:background="@drawable/bg_rounded_corner_white"
 android:id="@+id/fragment_payment"
-    android:layout_marginTop="400dp"
-    android:layout_marginHorizontal="30dp"
-app:layout_constraintTop_toTopOf="@+id/viewPager">
+android:layout_marginTop="400dp"
+android:layout_marginHorizontal="30dp">
 
 <!-- Tiêu đề "Địa chỉ" -->
 <TextView
