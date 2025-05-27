@@ -1,24 +1,17 @@
 package com.example.android_doan;
 
+import com.example.android_doan.model.Delivery;
 import com.google.gson.annotations.SerializedName;
 
 public class DeliveryResponse {
-
-    @SerializedName("deliveryId")
-    private String deliveryId;
-
-    @SerializedName("trackingUrl")
-    private String trackingUrl;
+    @SerializedName("delivery")
+    private Delivery delivery;
 
     @SerializedName("message")
     private String message;
 
-    public String getDeliveryId() {
-        return deliveryId;
-    }
-
-    public String getTrackingUrl() {
-        return trackingUrl;
+    public Delivery getDelivery() {
+        return delivery;
     }
 
     public String getMessage() {

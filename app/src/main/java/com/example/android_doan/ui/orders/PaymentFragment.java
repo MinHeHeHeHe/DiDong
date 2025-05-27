@@ -1,7 +1,5 @@
 package com.example.android_doan.ui.orders;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,8 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.android_doan.DeliveryResponse;
@@ -28,6 +24,7 @@ import com.example.android_doan.LoginResponse;
 import com.example.android_doan.PaymentResponse;
 import com.example.android_doan.R;
 import com.example.android_doan.model.Cart;
+import com.example.android_doan.model.Delivery;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
 
@@ -42,8 +39,6 @@ public class PaymentFragment extends Fragment {
     private Spinner spinnerThanhToan;
     private Button btnThanhToan;
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,13 +49,11 @@ public class PaymentFragment extends Fragment {
         spinnerThanhToan = view.findViewById(R.id.spinner_thanh_toan);
         btnThanhToan = view.findViewById(R.id.btn_thanh_toan);
 
-
-        // Thiết lập dữ liệu cho Spinner
+        // Spinner options
         String[] options = {"Thanh toán MOMO", "COD"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, options);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerThanhToan.setAdapter(adapter);
-
 
         btnThanhToan.setOnClickListener(v -> {
             String selectedOption = spinnerThanhToan.getSelectedItem().toString();
@@ -77,13 +70,10 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadCartTotalPrice(); // cập nhật lại mỗi lần fragment được hiển thị
+        loadCartTotalPrice();
     }
 
-
-
     private void loadUserAddress() {
-        // Giả sử bạn đã lưu token và userId trong SharedPreferences
         SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String token = prefs.getString("token", "");
         String userId = prefs.getString("userId", "");
@@ -98,7 +88,7 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onResponse(Call<LoginResponse.User> call, Response<LoginResponse.User> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    String address = response.body().getAddress();  // Đảm bảo getAddress() có trong model
+                    String address = response.body().getAddress();
                     txtDiaChi.setText(address != null ? address : "Không có địa chỉ");
                 } else {
                     Toast.makeText(getContext(), "Lỗi khi lấy thông tin người dùng", Toast.LENGTH_SHORT).show();
@@ -107,7 +97,6 @@ public class PaymentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<LoginResponse.User> call, Throwable t) {
-                Log.e("PaymentFragment", "Lỗi API getUserById", t);
                 Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -128,13 +117,12 @@ public class PaymentFragment extends Fragment {
             public void onResponse(Call<Cart> call, Response<Cart> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     double total = response.body().getTotal_price();
-                    txtTongTien.setText(String.format("%,.0f", total)); // Hiển thị dạng 12,000
+                    txtTongTien.setText(String.format("%,.0f", total));
                 }
             }
 
             @Override
             public void onFailure(Call<Cart> call, Throwable t) {
-                Log.e("PaymentFragment", "Lỗi API getCart", t);
                 Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -150,11 +138,7 @@ public class PaymentFragment extends Fragment {
         apiService.clearCart("Bearer " + token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Log.d("PaymentFragment", "Đã xóa giỏ hàng sau thanh toán");
-                } else {
-                    Log.e("PaymentFragment", "Xóa giỏ hàng thất bại, code: " + response.code());
-                }
+                Log.d("PaymentFragment", "Đã xóa giỏ hàng sau thanh toán");
             }
 
             @Override
@@ -163,7 +147,6 @@ public class PaymentFragment extends Fragment {
             }
         });
     }
-
 
     private void initiatePayment(boolean isMomo) {
         SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -175,44 +158,51 @@ public class PaymentFragment extends Fragment {
         }
 
         ApiService apiService = RetrofitClient.getApiService();
-        Call<DeliveryResponse> call = apiService.createDelivery("Bearer " + token);
-
-        call.enqueue(new Callback<DeliveryResponse>() {
+        apiService.initiatePayment("Bearer " + token).enqueue(new Callback<PaymentResponse>() {
             @Override
-            public void onResponse(Call<DeliveryResponse> call, Response<DeliveryResponse> response) {
+            public void onResponse(Call<PaymentResponse> call, Response<PaymentResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    DeliveryResponse deliveryResponse = response.body();
-                    String deliveryId = deliveryResponse.getDeliveryId();
-                    String trackingUrl = deliveryResponse.getTrackingUrl();
+                    String paymentUrl = response.body().getPaymentUrl();
 
-                    // Lưu deliveryId để dùng sau
-                    SharedPreferences.Editor editor = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).edit();
-                    editor.putString("deliveryId", deliveryId);
-                    editor.apply();
+                    // Gọi API tạo delivery
+                    apiService.createDelivery("Bearer " + token).enqueue(new Callback<DeliveryResponse>() {
+                        @Override
+                        public void onResponse(Call<DeliveryResponse> call, Response<DeliveryResponse> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                Delivery delivery = response.body().getDelivery();
+                                String deliveryId = delivery.getId();
 
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("lastDeliveryId", deliveryId);
+                                editor.apply();
 
-                    // Mở MOMO nếu có, còn COD thì thông báo
-                    if (isMomo && trackingUrl != null && !trackingUrl.isEmpty()) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trackingUrl));
-                        startActivity(browserIntent);
-                    } else {
-                        Toast.makeText(getContext(), "Thanh toán COD thành công", Toast.LENGTH_SHORT).show();
-                    }
+                                clearCartAfterPayment();
 
-                    clearCartAfterPayment();
+                                if (isMomo && paymentUrl != null && !paymentUrl.isEmpty()) {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(paymentUrl)));
+                                } else {
+                                    Toast.makeText(getContext(), "Thanh toán COD thành công", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(getContext(), "Tạo đơn giao hàng thất bại", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DeliveryResponse> call, Throwable t) {
+                            Toast.makeText(getContext(), "Lỗi mạng khi tạo delivery: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 } else {
-                    Toast.makeText(getContext(), "Không thể tạo đơn giao hàng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Lỗi khi thanh toán", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<DeliveryResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<PaymentResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
-
-
 }
