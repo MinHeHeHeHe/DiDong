@@ -26,16 +26,6 @@
                 android:layout_marginTop="80dp"
                 android:layout_gravity="top|left">
 
-                <ImageView
-                    android:id="@+id/image_chevron_left"
-                    android:layout_width="22.5dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_gravity="left"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/image_arrow_left" />
-
                 <TextView
                     android:id="@+id/text_feedback_title"
                     android:layout_width="wrap_content"
@@ -84,6 +74,7 @@
                     android:textSize="16sp" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_app_error"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -122,6 +113,7 @@
                     android:textSize="16sp" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_late_delivery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -160,6 +152,7 @@
                     android:textSize="16sp" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_bad_quality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -198,6 +191,7 @@
                     android:textSize="16sp" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_wrong_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -236,6 +230,7 @@
                     android:textSize="16sp" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_staff_attitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -273,25 +268,21 @@
             <EditText
                 android:id="@+id/container_frame"
                 android:layout_width="372dp"
-                android:layout_height="150dp"
+                android:layout_height="244dp"
                 android:layout_gravity="top|left"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="548dp"
+                android:hint="Bạn có thể viết thêm tại đây..."
+                android:gravity="top|start"
                 android:background="@drawable/container_gop_y"
-                android:maxLines="3">
-
-            </EditText>
-
-            <ImageView
-                android:id="@+id/image_rectangle"
-                android:layout_width="412dp"
-                android:layout_height="146dp"
-                android:layout_marginTop="780dp"
-                android:layout_gravity="top|left"
-                android:scaleType="centerInside"
-                />
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:padding="16dp"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:maxLines="10"
+                android:scrollbars="vertical" />
         </FrameLayout>
-
 
     </FrameLayout>
 

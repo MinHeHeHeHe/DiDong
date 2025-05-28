@@ -133,7 +133,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="336dp"
             android:layout_gravity="top|left"
-            android:background="@drawable/background_chinh_sua_thong_tin">
+            android:background="@drawable/background_chinh_sua_thong_tin"
+            android:id="@+id/textLichSuDonHang">
 
             <FrameLayout
                 android:layout_width="match_parent"

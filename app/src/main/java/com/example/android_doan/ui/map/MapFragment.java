@@ -86,6 +86,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "✅ Đã xác nhận giao hàng", Toast.LENGTH_SHORT).show();
+                    // ✅ Lưu deliveryId để GopYActivity sử dụng
+                    prefs.edit().putString("deliveryId", deliveryId).apply();
 
                     FragmentManager fm = requireActivity().getSupportFragmentManager();
                     for (Fragment fragment : fm.getFragments()) {

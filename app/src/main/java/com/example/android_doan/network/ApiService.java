@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.android_doan.AddToCartRequest;
+import com.example.android_doan.CommentRequest;
 import com.example.android_doan.DeliveryResponse;
-import com.example.android_doan.model.Delivery;
 import com.example.android_doan.ForgotPasswordRequest;
 import com.example.android_doan.ForgotPasswordResponse;
 import com.example.android_doan.LoginRequest;
@@ -16,6 +16,7 @@ import com.example.android_doan.ResetPasswordResponse;
 import com.example.android_doan.UpdateCartRequest;
 import com.example.android_doan.UpdateCartResponse;
 import com.example.android_doan.model.Cart;
+import com.example.android_doan.model.Delivery;
 import com.example.android_doan.model.Drink;
 import com.example.android_doan.model.Salad;
 import com.example.android_doan.model.SideDish;
@@ -141,6 +142,19 @@ public interface ApiService {
 
 
 
+
+    @POST("api/delivery/addComment/{deliveryId}")
+    Call<Void> addComment(
+            @Header("Authorization") String token,
+            @Path("deliveryId") String deliveryId,
+            @Body CommentRequest request
+    );
+
+    @GET("api/delivery/getAllDeliveredDeliveries")
+    Call<List<Delivery>> getAllDeliveredDeliveries(@Header("Authorization") String token);
+
+    @GET("api/delivery/getDelivery/{id}")
+    Call<Delivery> getDeliveryById(@Path("id") String id, @Header("Authorization") String token);
 
 
 }

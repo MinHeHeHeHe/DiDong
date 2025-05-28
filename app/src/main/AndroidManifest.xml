@@ -18,8 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android_DoAn"
         tools:targetApi="31">
-        <activity android:name=".ui.profile.GopYActivity" />
-
         <activity
             android:name=".Activity.DetailPizzaActivity"
             android:exported="false" />
@@ -54,5 +52,19 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAQMdmF5rYUyDzXCAE5cADY0udHtKKAk3M"/>
+        <activity
+            android:name=".ui.profile.GopYActivity"
+            android:exported="false">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".Activity.LichSuDonHangActivity"
+            android:exported="false"/>
+        <activity android:name=".Activity.ChiTietDonHangActivity"
+            android:exported="false" />
+
     </application>
 </manifest>

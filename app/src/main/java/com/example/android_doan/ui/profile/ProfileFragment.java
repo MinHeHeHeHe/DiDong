@@ -22,8 +22,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.android_doan.Activity.DangNhapActivity;
+import com.example.android_doan.Activity.LichSuDonHangActivity;
 import com.example.android_doan.LoginResponse;
 import com.example.android_doan.ThemThongTinCaNhanResponse;
+import com.example.android_doan.adapter.DeliveryOrdersAdapter;
 import com.example.android_doan.databinding.FragmentProfileBinding;
 import com.example.android_doan.network.ApiService;
 import com.example.android_doan.network.RetrofitClient;
@@ -98,6 +100,13 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getActivity(), ChinhSuaThongTinActivity.class);
             startActivity(intent);
         });
+
+        // Sự kiện nhấn lịch sử đơn hàng
+        binding.textLichSuDonHang.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), LichSuDonHangActivity.class);
+            startActivity(intent);
+        });
+
 
         // Sự kiện nhấn avatar để chọn ảnh
         binding.shapeableImageView.setOnClickListener(v -> {
