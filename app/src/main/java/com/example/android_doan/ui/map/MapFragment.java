@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -92,7 +93,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     FragmentManager fm = requireActivity().getSupportFragmentManager();
                     for (Fragment fragment : fm.getFragments()) {
                         if (fragment instanceof TrackingFragment && fragment.getView() != null) {
-                            ((TrackingFragment) fragment).updateDeliveryStatus("Đã giao");
+                            ((MapFragment) fragment).updateDeliveryStatus("Đã giao");
                             break;
                         }
                     }
@@ -108,6 +109,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 Toast.makeText(getContext(), "❌ Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    public void updateDeliveryStatus(String status) {
+        if (getView() != null) {
+            TextView txt = getView().findViewById(R.id.txt_giao_hang_status);
+            txt.setText(status);
+        }
     }
 
     // Lifecycle bắt buộc cho MapView
